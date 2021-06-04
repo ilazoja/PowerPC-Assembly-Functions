@@ -310,7 +310,7 @@ void CodeMenu()
 	MainLines.push_back(&P3.CalledFromLine);
 	MainLines.push_back(&P4.CalledFromLine);
 	MainLines.push_back(&SpecialModePage.CalledFromLine);
-	MainLines.push_back(new Selection("Stagelist", { "FFFFFFFFFFFFFFF", "FFFFFFFFFFFFFFF", "FFFFFFFFFFFFFFF", "FFFFFFFFFFFFFFF", "FFFFFFFFFFFFFFF", "FFFFFFFFFFFFFFF", "FFFFFFFFFFFFFFF", "FFFFFFFFFFFFFFF" }, 0, STAGELIST_INDEX));
+	MainLines.push_back(new Selection("Stagelist", { "Project+", "LegacyMP+" }, 0, STAGELIST_INDEX));
 
 #if BUILD_TYPE == PROJECT_PLUS
 	MainLines.push_back(new Toggle("Crowd Cheers", false, CROWD_CHEER_TOGGLE_INDEX));
@@ -1270,13 +1270,12 @@ void ControlCodeMenu()
 		Decrement(Reg4);
 		If(Reg4, LESS_OR_EQUAL_I, 0); {
 			If(Reg4, LESS_I, 0); {
-				// SetRegister(Reg4, FIRST_FRAME_ADVANCE_NUM_WAIT_FRAMES - FRAME_ADVANCE_NUM_WAIT_FRAMES);
-				SetRegister(Reg4, 0);	//Suggested Fix
+				SetRegister(Reg4, FIRST_FRAME_ADVANCE_NUM_WAIT_FRAMES - FRAME_ADVANCE_NUM_WAIT_FRAMES);
 			}EndIf();
 			ANDIS(Reg1, Reg1, ~0x0010); //allow frame advance
 			ADDI(Reg4, Reg4, FRAME_ADVANCE_NUM_WAIT_FRAMES);
 
-			CounterLoop(Reg7, 8, 32, 8);
+			CounterLoop(Reg7, 0, 32, 8);	//Suggested Fix
 			{
 				LHZX(Reg8, Reg3, Reg7);
 				ANDI(Reg8, Reg8, ~0x0010);
