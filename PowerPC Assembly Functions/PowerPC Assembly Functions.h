@@ -270,6 +270,7 @@ void CodeStart(string FilePath);
 void CodeEnd();
 
 void MakeGCT(string TextFilePath, string OldGCTFilePath, string NewGCTFilePath);
+bool MakeASM(string TextFilePath, string OutputAsmPath);
 
 int GetHexFromFloat(float Value);
 int GetShiftNum(int endPos);

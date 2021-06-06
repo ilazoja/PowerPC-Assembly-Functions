@@ -288,7 +288,7 @@ static int CurrentOffset = START_OF_CODE_MENU;
 #define FRAMES_WAITED_DURING_SLOW_MOTION 3
 
 static vector<int> Defaults;
-static fstream MenuFile("G:\\Compile\\data.cmnu", fstream::out | fstream::binary);
+static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\pf\\menu3\\data.cmnu", fstream::out | fstream::binary);
 
 
 class Page;

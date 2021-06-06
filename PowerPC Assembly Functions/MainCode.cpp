@@ -21,10 +21,12 @@ using namespace std;
 
 
 int main()
-{
-	string OutputTextPath = "G:\\Compile\\ASM.txt";
+{	
+	string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\Source\\Project+\\CodeMenu.asm";
 
-	CodeStart(OutputTextPath);
+	string TextPath = "../ASM.txt";
+
+	CodeStart(TextPath);
 	//place all ASM code here
 
 	//ReplayFix();
@@ -86,4 +88,8 @@ int main()
 	//loadCppCodes(); writeInjectionsRepeat();
 
 	CodeEnd();
+
+	MakeASM(TextPath, OutputAsmPath);
+
+
 }
