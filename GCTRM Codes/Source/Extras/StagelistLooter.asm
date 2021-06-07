@@ -11,8 +11,6 @@ Stagelist Looter [Desi]
 #80495D38 - GCT Link Return Location
 #80495D3C - No longer used
 #80495D40 - Location of Loaded GCT
-
-
     .BA<-StagelistCodesetStorage
     .BA->$935CE45C
 PULSE
@@ -36,7 +34,7 @@ PULSE
 * 54010000 00000018
     .BA<-Stagelist8
 * 54010000 0000001C
-    .GOTO->SSS
+    .GOTO->SelmapStorage
 StagelistCodesetStorage:
     word[8] |
     0, 0, 0, 0, 0, 0, 0, 0
@@ -56,6 +54,86 @@ Stagelist7:
     string "/stage/stagelist/Project+Stagelist.gct"
 Stagelist8:
     string "/stage/stagelist/Project+Stagelist.gct"
+
+SelmapStorage:
+    .BA<-SelmapStringStorage
+PULSE
+{
+    mr r16, r6  #Copy Base Address to Pointer Address
+    blr
+}
+    .BA<-Selmap1
+* 54010000 00000000     #Store location of Selmap to Pointer Address Offset 0x10
+    .BA<-Selmap2
+* 54010000 00000004
+    .BA<-Selmap3
+* 54010000 00000008
+    .BA<-Selmap4
+* 54010000 0000000C
+    .BA<-Selmap5
+* 54010000 00000010
+    .BA<-Selmap6
+* 54010000 00000014
+    .BA<-Selmap7
+* 54010000 00000018
+    .BA<-Selmap8
+* 54010000 0000001C
+    .GOTO->SelmapCopyCode
+SelmapStringStorage:
+    word[8] |
+    0, 0, 0, 0, 0, 0, 0, 0
+Selmap1:
+    string "sc_selmap.pac"  #Limited to 9 letters + .pac
+Selmap2:
+    string "selmapMP+.pac"
+Selmap3:
+    string "sc_selmap.pac"
+Selmap4:
+    string "sc_selmap.pac"
+Selmap5:
+    string "sc_selmap.pac"
+Selmap6:
+    string "sc_selmap.pac"
+Selmap7:
+    string "sc_selmap.pac"
+Selmap8:
+    string "sc_selmap.pac"
+
+
+SelmapCopyCode:
+PULSE
+{
+    b poststorage
+    nop 
+    nop 
+poststorage:
+    stw r7, 0x4 (r15)
+    stw r8, 0x8 (r15)
+    lis r6, CodeMenuStart
+    lwz r6, CodeMenuHeader (r6)
+    lbz r6, 0xb (r6)     #Obtain Code Menu Offset
+    mulli r6, r6, 0x4
+    lwzx r6, r6, r16    #Obtain Selmap String Location
+    lis r7, 0x806F
+    ori r7, r7, 0xF3F7 
+    lwz r8, 0 (r6)
+    stw r8, 0 (r7)
+    lwz r8, 4 (r6)
+    stw r8, 4 (r7)
+    lwz r8, 8 (r6)
+    stw r8, 8 (r7)
+    lis r7, 0x817F
+    ori r7, r7, 0x637C
+    lwz r8, 0 (r6)
+    stw r8, 0 (r7)
+    lwz r8, 4 (r6)
+    stw r8, 4 (r7)
+    lbz r8, 8 (r6)
+    stb r8, 8 (r7)
+    lwz r7, 0x4 (r15)
+    lwz r8, 0x8 (r15)
+    blr
+}
 
 
 #On the SSS, this will load based off of the code menu.
