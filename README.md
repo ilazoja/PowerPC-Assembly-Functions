@@ -25,7 +25,7 @@ Note: DOLPHIN_BUILD denotes the netplay version. Modify both paths if you plan t
 
 6. If you'd like to assemble the GCTs automatically (as opposed to dragging the codesets to GCTRM yourself after running the program), find **BuildFolder** in **MainCode.cpp** and set the path of your build folder (e.g. Project+), then set **RunGCTRM** to *true*. This will assemble all the codes in your P+ build referenced in RSBE01.txt and BOOST.txt (offline) and NETPLAY.txt and NETBOOST.txt (netplay) using the GCTRM.exe in the build folder.
 
-7. If you'd like to sync your sd.raw after assembling the ASM using Virtual SD Sync, find **VSDExePath** in **MainCode.cpp** and set the path to the VSDSync.exe, then set **RunVSDSync** to **true**. You must setup [VSDSync](http://forums.kc-mm.com/index.php?topic=79470) of course first
+7. If you'd like to sync your sd.raw using Virtual SD Sync after assembling the GCTs, find **VSDExePath** in **MainCode.cpp** and set the path to the VSDSync.exe, then set **RunVSDSync** to **true**. You must setup [VSDSync](http://forums.kc-mm.com/index.php?topic=79470) of course first
 
 ### [Editing the Code Menu](Code%20Menu%20Editing.md)
 
