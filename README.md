@@ -38,7 +38,7 @@ After the code is ran, you'll be greeted with a Debug Console window. When instr
 
 ## Credits
 
-Fracture for the [original repository, ASM functions and code menu]((https://github.com/Fracture17/PowerPC-Assembly-Functions))
+Fracture for the [original repository, ASM functions and code menu](https://github.com/Fracture17/PowerPC-Assembly-Functions)
 
 DesiacX for the [extended code menu](https://github.com/DesiacX/PowerPC-Assembly-Functions) and [ASM](GCTRM%20Codes)
 
