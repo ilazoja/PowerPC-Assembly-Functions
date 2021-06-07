@@ -27,11 +27,11 @@ static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project
 
 // --- Optional Settings ---
 // GCTRM settings (assumes GCTRM-Log, RSBE01.txt, and boost.txt is in folder)
-static bool RunGCTRM = true;
+static bool RunGCTRM = false;
 static string BuildFolder = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\";
 
 // Virtual SD Sync settings
-static bool RunVSDSync = true;
+static bool RunVSDSync = false;
 static string VSDExePath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\VSDSync-0.1.3.2\\VSDSync.exe";
 
 int main()
