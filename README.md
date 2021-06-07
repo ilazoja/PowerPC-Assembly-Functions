@@ -36,7 +36,7 @@ After you've edited the code menu code, run the program to construct it by click
 
 After the code is ran, you'll be greeted with a Debug Console window. When instructed, press the keys if prompted. You are now done using Visual Studio and may close it if you like (make sure to save your open stuff before doing so to make sure you don’t have to do it again)
 
-If you did step 6, and no errors were generated when you ran the program, the new code menu is successfully put in the build and you should be good to go. Otherwise, you will have to drag the RSBE01.txt in your build into GCTRM-Log.bat to assemble the gct.
+If you did step 6, and no errors were generated when you ran the program, the new code menu should be successfully put in the build and you should be good to go. Otherwise, you will have to drag the RSBE01.txt in your build into GCTRM-Log.bat to assemble the gct.
 
 ## Credits
 
