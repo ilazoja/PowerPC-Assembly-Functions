@@ -48,4 +48,4 @@ DukeItOut for GCTRM
 
 Syvkal for [Virtual SD Sync](http://forums.kc-mm.com/index.php?topic=79470)
 
-KingJigglypuff for the original code menu editing guide for P+EX
+KingJigglypuff for the original [code menu editing guide](https://docs.google.com/document/d/10Mkn__2bbG-yuMIh7e2zVK1TWh2HClrNWuz7diRLW9M/edit) for P+EX
