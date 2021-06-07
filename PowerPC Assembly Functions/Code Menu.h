@@ -288,8 +288,13 @@ static int CurrentOffset = START_OF_CODE_MENU;
 #define FRAMES_WAITED_DURING_SLOW_MOTION 3
 
 static vector<int> Defaults;
-static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\pf\\menu3\\data.cmnu", fstream::out | fstream::binary);
 
+// Set code menu file output
+#if DOLPHIN_BUILD
+static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\pf\\menu3\\dnet.cmnu", fstream::out | fstream::binary);
+#else
+static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\pf\\menu3\\data.cmnu", fstream::out | fstream::binary);
+#endif
 
 class Page;
 
