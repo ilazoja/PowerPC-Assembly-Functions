@@ -32,7 +32,7 @@ Note: DOLPHIN_BUILD denotes the netplay version. Modify both paths if you plan t
 
 ### Run
 
-After you've edited the code menu code, run the program to construct it by clicking the **Local Windows Debugger** (located in the top middle of the Visual Studio window, you'll see the green arrow icon) to run the code).
+After you've edited the code menu code, run the program to construct it by clicking the **Local Windows Debugger** (located in the top middle of the Visual Studio window, you'll see the green arrow icon) to run the code.
 
 After the code is ran, you'll be greeted with a Debug Console window. When instructed, press the keys if prompted. You are now done using Visual Studio and may close it if you like (make sure to save your open stuff before doing so to make sure you don’t have to do it again)
 
