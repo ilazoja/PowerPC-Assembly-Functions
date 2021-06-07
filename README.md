@@ -21,7 +21,7 @@ Note: DOLPHIN_BUILD denotes the netplay version. Modify both paths if you plan t
 
 #### Optional
 
-5. If you'd to create the netplay version of the code menu, find **DOLPHIN_BUILD** in **PowerPC Assembly Instructions.h** (under the Source Files folder) and set it to *true*.
+5. If you'd to create the netplay version of the code menu, find **DOLPHIN_BUILD** in **PowerPC Assembly Instructions.h** (under the Source Files folder) and set it to *true*. The only difference between the regular and Netplay versions of the Code Menu is that the Netplay version automatically saves replays to the NAND.
 
 6. If you'd like to assemble the GCTs automatically (as opposed to dragging the codesets to GCTRM yourself after running the program), find **BuildFolder** in **MainCode.cpp** and set the path of your build folder (e.g. Project+), then set **RunGCTRM** to *true*. This will assemble all the codes in your P+ build referenced in RSBE01.txt and BOOST.txt (offline) and NETPLAY.txt and NETBOOST.txt (netplay) using the GCTRM.exe in the build folder.
 
