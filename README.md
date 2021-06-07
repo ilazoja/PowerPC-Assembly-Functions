@@ -5,16 +5,19 @@
 
 ## Code Menu
 
-### Setup
+### Setup 
+
+These steps only need to be done once unless you switch the folder location of your build:
+
 1. Clone this repository
 
 2. Open **PowerPC Assembly Functions.sln** in Visual Studio
 
-3. Find **OutputAsmPath** in **MainCode.cpp** (under the **Source Files** folder) and modify the path parameter to the location of CodeMenu.asm in your build (in P+ it's in \Project+\Source\Project+\CodeMenu.asm)
+3. Find **OutputAsmPath** in **MainCode.cpp** (under the **Source Files** folder) and modify the path parameter to the location of CodeMenu.asm in your build (in P+ it's in *\Project+\Source\Project+\CodeMenu.asm*)
 
-Note: DOLPHIN_BUILD denotes the netplay version. Modify both paths if you plan to use the offline and netplay launcher. (In P+, the location of the netplay code menu asm is in \Project+\Source\Netplay\Net-CodeMenu.asm)
+Note: DOLPHIN_BUILD denotes the netplay version. Modify both paths if you plan to use the offline and netplay launcher. (In P+, the location of the netplay code menu asm is in *\Project+\Source\Netplay\Net-CodeMenu.asm*)
 
-4. Find **static fstream MenuFile** in **Code Menu.h** (under the **Header Files** folder) and modify the path to the location of data.cmnu in your build (in P+ it's in \Project+\pf\menu3\data.cmnu for the offline version and \Project+\pf\menu3\dnet.cmnu for the netplay version)
+4. Find **static fstream MenuFile** in **Code Menu.h** (under the **Header Files** folder) and modify the path to the location of data.cmnu in your build (in P+ it's in *\Project+\pf\menu3\data.cmnu* for the offline version and *\Project+\pf\menu3\dnet.cmnu* for the netplay version)
 
 #### Optional
 
@@ -23,6 +26,8 @@ Note: DOLPHIN_BUILD denotes the netplay version. Modify both paths if you plan t
 6. If you'd like to assemble the GCTs automatically (as opposed to dragging the codesets to GCTRM yourself after running the program), find **BuildFolder** in **MainCode.cpp** and set the path of your build folder (e.g. Project+), then set **RunGCTRM** to *true*. This will assemble all the codes in your P+ build referenced in RSBE01.txt and BOOST.txt (offline) and NETPLAY.txt and NETBOOST.txt (netplay) using the GCTRM.exe in the build folder.
 
 7. If you'd like to sync your sd.raw after assembling the ASM using Virtual SD Sync, find **VSDExePath** in **MainCode.cpp** and set the path to the VSDSync.exe, then set **RunVSDSync** to **true**. You must setup [VSDSync](http://forums.kc-mm.com/index.php?topic=79470) of course first
+
+### [Editing the Code Menu](Code%20Menu%20Editing.md)
 
 
 ### Run
