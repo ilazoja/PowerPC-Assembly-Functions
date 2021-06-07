@@ -26,7 +26,7 @@ static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project
 #endif
 
 // --- Optional Settings ---
-// GCTRM settings (assumes GCTRM-Log, RSBE01.txt, and boost.txt is in folder)
+// GCTRM settings (assumes GCTRM, RSBE01.txt, and boost.txt is in folder)
 static bool RunGCTRM = false;
 static string BuildFolder = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\";
 
