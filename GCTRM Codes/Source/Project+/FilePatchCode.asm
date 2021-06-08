@@ -39,10 +39,10 @@ CODE @ $805A7E00
 	stw r4, 0x8(r1)
 
   nop #Go to the end of the code, ima hook here.
-  beq- finish #See Hook below. cmpw r3, 1. r3 is set to 1 if an SD Root exists in the file path already.
-
-	lis r4, 0x8040		#\ Mod folder
-	ori r4, r4, 0x6920	#/
+  beq- finish #See Hook below. 
+  nop #A second hook point. If its a stage, ima ASL it to the Stagelist Root
+	#lis r4, 0x8040		#\ Mod folder
+	#ori r4, r4, 0x6920	#/
 	addi r3, r1, 0x10
 	lis r12, 0x803F 
 	ori r12, r12, 0xA340
@@ -149,6 +149,26 @@ end:
   cmpwi r12, 1
 }
 
+HOOK @ $805A7E18
+{
+  lwz r4, 0 (r4)      #Load beginning of string
+  lis r3, 0x2F53
+  ori r3, r3, 0x5441  #Set String "/STA"
+  cmpw r3, r4
+  bne- ReturnB
+  lwz r4, 0x8 (r1)
+  lwz r4, 6 (r4)      #Load where "/MEL" should be
+  lis r3, 0x2F4D
+  ori r3, r3, 0x454C  #Set String "/MEL"
+  bne- ReturnB
+ReturnA:
+  lis r4, 0x8049    #\Load SDRoot from Stagelist.
+  lwz r4, 0x5D34 (r4)
+  b %END%
+ReturnB:
+	lis r4, 0x8040		  #\ Base Mod folder
+	ori r4, r4, 0x6920	#/
+}
 
 # Related to setting parameters for file loading
 * 040223E0 48585BC0

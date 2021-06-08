@@ -297,7 +297,7 @@ HOOK @ $806C87C4       #Fileload on CSS Load
 }
 
 Boot:
-HOOK @ $8002d528       #Fileload on Boot
+HOOK @ $806DD5F4       #Fileload on Boot, occurs at somepoint near CSS skip. This is incase someone boots to Main Menu.
 {
     stw r0, -4(r1)         #\Stack Frame 
     mflr r0                #|
@@ -306,6 +306,9 @@ HOOK @ $8002d528       #Fileload on Boot
     stw r0, -8(r1)         #|
     stwu r1, -132(r1)      #|
     stmw r3, 8(r1)         #/
+
+    li r18, 0
+    li r19, 0
 
     lis r31, 0x935C			#\Setup File Loader at 935CE480
     ori r31, r31, 0xE460
@@ -336,7 +339,7 @@ HOOK @ $8002d528       #Fileload on Boot
     mtlr r0					#|
     lwz r0, -4(r1)			#/
 
-    li r31, 0 			#Original function
+    mr r3, r19 			#Original function
 }
 
 PULSE

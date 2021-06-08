@@ -34,7 +34,7 @@ Stagelist Looter Data  [Desi]
 
 ModFolderName:
 	string "/LegacyMP/"
-FileNameFolder:	#Requires SD Root Path for anything outside of the base builds SD Root. Must match ModFolderName. Must be 8 letters.
+FileNameFolder:	#Requires SD Root Path and PF for anything outside of the base builds SD Root. Must match ModFolderName. Must be 8 letters.
 	string "/LegacyMP/pf/stage/"
 FileNameLocation:
 	string "stageslot/"
@@ -44,8 +44,8 @@ FileNameLocation3:	#Requires SD Root Path and pf for anything outside of the bas
 	string "/LegacyMP/pf/sound/tracklist/"
 FileNameLocation4:
 	string "pf/sound/"
-FileNameLocation5:	#Requires SD Root Path and pffor anything outside of the base builds SD Root. Must match ModFolderName. Must be 8 letters.
-	string "/LegacyMP/pf/STAGE/MELEE/STG"
+FileNameLocation5:	#Do not change /STAGE/MELEE/. It needs to be all caps. Beware that there is a character limit for stages if you edit beyond that.
+	string "/STAGE/MELEE/STG"
 FileNameLocation6:	#Requires SD Root Path and pf for anything outside of the base builds SD Root. The SD Root Must match ModFolderName. Must be 8 letters.
 	string "DVD:/LegacyMP/pf/module/"
 
