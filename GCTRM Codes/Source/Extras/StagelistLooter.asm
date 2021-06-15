@@ -4,15 +4,51 @@ Stagelist Looter [Desi]
 
     .alias CodeMenuStart = 0x804E 
     .alias CodeMenuHeader = 0x02DC      #Offset of word containing location of the speed modifier. Source is compiled with headers for this.
-
+    .alias StagelistDataLocationHigh = 0x8049
+    .alias StagelistDataLocationLow = 0x5D3C
 #Memory Usage
-#935CE460 - Stagelist GCT and Selmap.pac File Map Location
-#80495D34 - Location of SD Root inside file loaded GCT 
-#80495D38 - GCT Link Return Location
-#80495D3C - No longer used
-#80495D40 - Location of Loaded GCT
+#80495D3C -
+    .BA<-DataStorage
+    .BA->$80495D3C
+    .GOTO->FileLoaderInit
+DataStorage:
+    word[8] |
+    0, |    #File Loader Location. See FileLoaderStorage for Details
+    0, |    #Stagelist.GCT Filename Locations
+    0, |    #GCTLink Return Location
+    0, |    #Stagelist Root Location
+    0, |    #Stage.pac Path Location
+    0, |    #Stage Module Path Location
+    0, |    #CSE Root Location
+    0       
+FileLoaderInit:
+PULSE
+{
+    lis r16, StagelistDataLocationHigh
+    lwz r16, StagelistDataLocationLow (r16)
+    blr
+}
+    .BA<-FileLoaderStorage
+* 54010000 00000000     #Store to Pointer Address
+    .GOTO->StageListSetup
+FileLoaderStorage: 
+    word[6] |
+    0, |    #TitleLocation
+    0, |    #
+    0, |    #
+    0, |    #StageListAloc
+    0, |    #
+    0       #
+
+StageListSetup:
+PULSE
+{
+    lis r16, StagelistDataLocationHigh
+    lwz r16, StagelistDataLocationLow (r16)
+    blr
+}
     .BA<-StagelistCodesetStorage
-    .BA->$935CE45C
+    * 54010000 00000004
 PULSE
 {
     mr r16, r6  #Copy Base Address to Pointer Address
@@ -152,20 +188,17 @@ HOOK @ $806C8D88       #Fileload on SSS Load
     li r18, 0
     li r19, 0
 
-    lis r31, 0x935C			#\Setup File Loader at 935CE480
-    ori r31, r31, 0xE460
-    lwz r3, -4 (r31)
+    lis r31, StagelistDataLocationHigh        #\  Setup FileLoader within DataStorage
+    lwz r31, StagelistDataLocationLow (r31)       #|
+    lwz r3, 4 (r31)                     #|Obtain Stagelist.GCT Title Location
+    lwz r31, 0 (r31)                    #/
+
     lis r30, CodeMenuStart
     lwz r30, CodeMenuHeader (r30)
     lbz r30, 0xB (r30)        #OBtain Codemenu Offset
     mulli r30, r30, 0x4
     lwzx r30, r3, r30       #Obtain Stagelist File based on
     stw r30, 0 (r31)
-
-    lis r30, 0x8049			#|Load storage allocation within GCT
-    ori r30, r30, 0x5D40    #|
-    lwz r30, 0 (r30)		#|
-    stw r30, 12(r31)		#/
 
     li r30, 0x0				#\Initialize Data
     stw r30, 4(r31)			#|
@@ -214,16 +247,13 @@ HOOK @ $806D4858
     b return
 
 loadfile:
-    lis r31, 0x935C			#\Setup File Loader at 935CE480
-    ori r31, r31, 0xE460
-    lwz r30, -4 (r31)
+    lis r31, StagelistDataLocationHigh        #\  Setup FileLoader within DataStorage
+    lwz r31, StagelistDataLocationLow (r31)       #|
+    lwz r30, 4 (r31)                    #|Obtain Default Stagelist.GCT Title Location
+    lwz r31, 0 (r31)                    #/
+    
     lwz r30, 0 (r30)        #|Obtain Default STagelist name.
     stw r30, 0 (r31)
-
-    lis r30, 0x8049			#\Load storage allocation within GCT
-    ori r30, r30, 0x5D40    #|
-    lwz r30, 0 (r30)		#|
-    stw r30, 12(r31)		#/
 
     li r30, 0x0				#\Initialize Data
     stw r30, 4(r31)			#|
@@ -263,16 +293,13 @@ HOOK @ $806C87C4       #Fileload on CSS Load
     li r18, 0
     li r19, 0
 
-    lis r31, 0x935C			#\Setup File Loader at 935CE480
-    ori r31, r31, 0xE460
-    lwz r30, -4 (r31)
+    lis r31, StagelistDataLocationHigh        #\  Setup FileLoader within DataStorage
+    lwz r31, StagelistDataLocationLow (r31)       #|
+    lwz r30, 4 (r31)                    #|Obtain Default Stagelist.GCT Title Location
+    lwz r31, 0 (r31)                    #/
+    
     lwz r30, 0 (r30)        #|Obtain Default STagelist name.
     stw r30, 0 (r31)
-
-    lis r30, 0x8049			#\Load storage allocation within GCT
-    ori r30, r30, 0x5D40    #|
-    lwz r30, 0 (r30)		#|
-    stw r30, 12(r31)		#/
 
     li r30, 0x0				#\Initialize Data
     stw r30, 4(r31)			#|
@@ -310,15 +337,13 @@ HOOK @ $806DD5F4       #Fileload on Boot, occurs at somepoint near CSS skip. Thi
     li r18, 0
     li r19, 0
 
-    lis r31, 0x935C			#\Setup File Loader at 935CE480
-    ori r31, r31, 0xE460
-    lwz r30, -4 (r31)
+    lis r31, StagelistDataLocationHigh        #\  Setup FileLoader within DataStorage
+    lwz r31, StagelistDataLocationLow (r31)       #|
+    lwz r30, 4 (r31)                    #|Obtain Default Stagelist.GCT Title Location
+    lwz r31, 0 (r31)                    #/
+    
     lwz r30, 0 (r30)        #|Obtain Default STagelist name.
     stw r30, 0 (r31)
-    lis r30, 0x8049			#\Load storage allocation within GCT
-    ori r30, r30, 0x5D40    #|
-    lwz r30, 0 (r30)		#|
-    stw r30, 12(r31)		#/
 
     li r30, 0x0				#\Initialize Data
     stw r30, 4(r31)			#|
@@ -344,16 +369,56 @@ HOOK @ $806DD5F4       #Fileload on Boot, occurs at somepoint near CSS skip. Thi
 
 PULSE
 {
-    lis r16, 0x8049         #\
-	ori r16, r16, 0x5D38    #|Store GCT Link Return Location
-	stw r15, 0 (r16)        #/
+    lis r16, StagelistDataLocationHigh
+    lwz r16, StagelistDataLocationLow (r16)
+    lwz r16, 0 (r16)
+    blr
+}
+    .BA<-GCTAllocation
+* 54010000 0000000C     #Store to Pointer Address
+    .RESET
+    .GOTO->SkipAloc
+GCTAllocation:
+    word[320] |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, |
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
-    lis r16, 0x8049			#|Check if the file loaded
-    ori r16, r16, 0x5D40    #|
-    lwz r16, 0 (r16)		#|
+SkipAloc:
+
+
+PULSE
+{
+    lis r16, StagelistDataLocationHigh       #\
+	lwz r16, StagelistDataLocationLow (r16)   #|Store GCT Link Return Location
+	stw r15, 8 (r16)        #/
+
+    #lis r16, 0x8049		#|Check if the file loaded
+    #ori r16, r16, 0x5D40    #|
+    lwz r16, 0 (r16)    #Enter File Loader
+    lwz r16, 0xC (r16)  #Enter GCT
+    #lwz r16, 0 (r16)		#|
     lwz r6, 0 (r16)
+    nop 
     cmpwi r6, 0
-    beq- Return             #|The allocation is set to be all zero. If its not, a GCT exists in there.
+    beq- Return             #|A GCT hasn't been loaded yet. 
 
     mr r15, r16
     li r4, 0x8 

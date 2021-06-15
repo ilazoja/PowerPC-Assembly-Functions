@@ -1,6 +1,8 @@
 ########################################################################
 Stagelist Looter Data  [Desi]
 ########################################################################
+    .alias StagelistDataLocationHigh = 0x8049
+    .alias StagelistDataLocationLow = 0x5D3C
     .BA<-ModFolderName
 	.BA->$80495D34
     .BA<-FileNameFolder
@@ -180,9 +182,9 @@ byte 80 @ $800AF673 # Stage Count
 
 PULSE       #Setup GCT Link Return
 {
-    lis r16, 0x8049
-	ori r16, r16, 0x5D38
-	lwz r16, 0 (r16)
+    lis r16, StagelistDataLocationHigh
+	lwz r16, StagelistDataLocationLow (r16)
+	lwz r16, 8 (r16)
     addi r16, r16, 0x30
     lis r6, 0x8000
     stw r16, 0x1848 (r6)
