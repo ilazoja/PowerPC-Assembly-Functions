@@ -3,8 +3,20 @@ Stagelist Looter Data  [Desi]
 ########################################################################
     .alias StagelistDataLocationHigh = 0x8049
     .alias StagelistDataLocationLow = 0x5D3C
-    .BA<-ModFolderName
-	.BA->$80495D34
+PULSE
+{
+    lis r16, StagelistDataLocationHigh
+    lwz r16, StagelistDataLocationLow (r16)
+    blr
+}
+    .BA<-StagelistRoot
+* 54010000 0000000C     #Store to Pointer Address
+	.BA<-StagePacPath
+* 54010000 00000010
+	.BA<-StageModulePath
+* 54010000 00000014
+	.BA<-CSERoot
+* 54010000 00000018
     .BA<-FileNameFolder
 	.BA->$8053EFE4
 	.BA<-FileNameLocation
@@ -15,10 +27,6 @@ Stagelist Looter Data  [Desi]
 	.BA->$8053CFF8	
 	.BA<-FileNameLocation4
 	.BA->$8053EFB4
-	.BA<-FileNameLocation5
-	.BA->$80495D44
-	.BA<-FileNameLocation6
-	.BA->$80495D48
     .BA<-TABLE_STAGES
     .BA->$80495D00
     .BA<-TABLE_1
@@ -34,24 +42,26 @@ Stagelist Looter Data  [Desi]
     .RESET
     .GOTO->SkipData
 
-ModFolderName:
-	string "/LegacyMP/"
-FileNameFolder:	#Requires SD Root Path and PF for anything outside of the base builds SD Root. Must match ModFolderName. Must be 8 letters.
-	string "/LegacyMP/pf/stage/"
+#Any SD Root must be 8 letters.
+StagelistRoot:
+	string "/LegacyMP/"	#This SD Root applies to all Stagelist Related Files except BRSTMs.
+CSERoot:
+	string "/LegacyMP/"	#This SD Root applies to BRSTMs. 
+FileNameFolder:		
+	string "/LegacyMP/pf/stage/"	#This is the prefix for FileNameLocation 1 and 2. SD Root and pf (Lowercase) are required for locations outside of the builds SD Root.
 FileNameLocation:
 	string "stageslot/"
 FileNameLocation2:
 	string "stageinfo/"	
-FileNameLocation3:	#Requires SD Root Path and pf for anything outside of the base builds SD Root. Must match ModFolderName. Must be 8 letters.
+FileNameLocation3: 		#This is where the Tracklist Configs are loaded from. SD Root and pf (Lowercase) are required for locations outside of the builds SD Root.
 	string "/LegacyMP/pf/sound/tracklist/"
-FileNameLocation4:
+FileNameLocation4:		
 	string "pf/sound/"
-FileNameLocation5:	#Do not change /STAGE/MELEE/. It needs to be all caps. Beware that there is a character limit for stages if you edit beyond that.
+StagePacPath:			#Do not change /STAGE/MELEE/. It needs to be all caps. If you edit STG, beware that there is a file legnth limit on the Stage Title.
 	string "/STAGE/MELEE/STG"
-FileNameLocation6:	#Requires SD Root Path and pf for anything outside of the base builds SD Root. The SD Root Must match ModFolderName. Must be 8 letters.
+StageModulePath:		#This is the path used by Stage Modules. SD Root and pf (Lowercase) are required for locations outside of the builds SD Root.
 	string "DVD:/LegacyMP/pf/module/"
 
-	
 TABLE_1:
 	byte[10] |
 0x15, | # Wario Land

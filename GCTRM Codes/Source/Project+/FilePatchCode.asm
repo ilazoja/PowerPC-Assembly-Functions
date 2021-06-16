@@ -26,7 +26,8 @@ op NOP				@ $8003CB28
 ##############################################################################################
 * E0000000 80008000
 * 225664EC 00000000
-
+    .alias StagelistDataLocationHigh = 0x8049 #See StagelistLooter.asm
+    .alias StagelistDataLocationLow = 0x5D3C
 # Chooses to read from the SD or DVD
 # Checks a string at 805A7C0C
 
@@ -38,9 +39,9 @@ CODE @ $805A7E00
 	stwu r1, -0x180(r1)
 	stw r4, 0x8(r1)
 
-  nop #Go to the end of the code, ima hook here.
+  nop #Go to the end of the code, hook here. 805A7E10.
   beq- finish #See Hook below. 
-  nop #A second hook point. If its a stage, ima ASL it to the Stagelist Root
+  nop #A second hook point. If its a stage, ASL it to the Stagelist Root 805A7E18.
 	#lis r4, 0x8040		#\ Mod folder
 	#ori r4, r4, 0x6920	#/
 	addi r3, r1, 0x10
@@ -99,8 +100,9 @@ pfcheck:
   cmpw r3, r12
   bne- end
 stagelistcheck:     #This checks the Stagelist Root and SD root
-  lis r3, 0x8049
-  lwz r3, 0x5D34 (r3)
+  lis r3, StagelistDataLocationHigh
+  lwz r3, StagelistDataLocationLow (r3)
+  lwz r3, 0xC (r3)
   lwz r3, 0 (r3)
   lwz r12, 0 (r4)
   cmpw r3, r12
@@ -162,8 +164,9 @@ HOOK @ $805A7E18
   ori r3, r3, 0x454C  #Set String "/MEL"
   bne- ReturnB
 ReturnA:
-  lis r4, 0x8049    #\Load SDRoot from Stagelist.
-  lwz r4, 0x5D34 (r4)
+  lis r4, StagelistDataLocationHigh    #\Load SDRoot from Stagelist.
+  lwz r4, StagelistDataLocationLow (r4)
+  lwz r4, 0xC (r4)
   b %END%
 ReturnB:
 	lis r4, 0x8040		  #\ Base Mod folder
@@ -358,6 +361,8 @@ string "/menu2/if_adv_mngr.pac"  @ $80B2C7F8
 address $805A7D18 @ $805A7D00
 string[2] "/Project+/pf/sfx/%03X",".sawnd" @ $805A7D18
 * 045A7D10 919B6600		# What is this?
+    .alias StagelistDataLocationHigh = 0x8049 #See StagelistLooter.asm
+    .alias StagelistDataLocationLow = 0x5D3C
 HOOK @ $801C8370																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										
 {
   stwu r1, -0x80(r1)
@@ -392,10 +397,9 @@ HOOK @ $801C8370
   cmpwi r26, 0x77		# |Stage soundbanks are range 0x53-0x77	(really 0x4C-70)
   bgt+ NormalBank		#/
   
-
-
-  lis r3, 0x8049    #\Load from Stagelist.
-  lwz r3, 0x5D34 (r3)
+  lis r3, StagelistDataLocationHigh     #\Load SD Root from Stagelist.asm. See Stagelist Looter for more information.
+  lwz r3, StagelistDataLocationLow (r3) #|
+  lwz r3, 0xC (r3)                      #/
   lwz r4, 1 (r3)
   stw r4, 0x25 (r1)
   lwz r4, 5 (r3)

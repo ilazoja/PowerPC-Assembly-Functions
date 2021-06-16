@@ -6,8 +6,16 @@ Stagelist Looter [Desi]
     .alias CodeMenuHeader = 0x02DC      #Offset of word containing location of the speed modifier. Source is compiled with headers for this.
     .alias StagelistDataLocationHigh = 0x8049
     .alias StagelistDataLocationLow = 0x5D3C
-#Memory Usage
-#80495D3C -
+#Memory Usage:
+#80495D3C (Word)
+#Tons of GCT Space
+#Edited Codes:
+#Major Edits in StageFiles.asm 
+#File Patch in FilePatchCode.asm
+#RSBE01 v1.30 in FilePatchCode.asm
+#Custom sound Engine v4.2 in CSE.asm
+
+
     .BA<-DataStorage
     .BA->$80495D3C
     .GOTO->FileLoaderInit

@@ -1,6 +1,8 @@
 #################################
 Stage File System Neo [DukeItOut]
 #################################
+    .alias StagelistDataLocationHigh = 0x8049 #See StagelistLooter.asm
+    .alias StagelistDataLocationLow = 0x5D3C
 	.BA<-FileFormatSetup
 	.BA->$8053EFE0
 	.BA<-FileNameFormat
@@ -158,15 +160,17 @@ clear:
 op NOP @ $8094AB24			# Make all dual pac stages run the same code
 HOOK @ $8094AB2C
 {
-	lis r4, 0x8049			# \ Load from Stagelist GCT
-	lwz r4, 0x5D44 (r4)		# /
+	lis r4, StagelistDataLocationHigh			# \ Load "/STAGE/MELEE/STG" from GCT
+	lwz r4, StagelistDataLocationLow (r4)		# |
+	lwz r4, 0x10 (r4)							# /
 }
 
-# Load Secondary Stage Name on everything else
+# Load Secondary Stage Name on everything else while we are at it.
 HOOK @ $80949C14
 {
-	lis r4, 0x8049			# \ Load from Stagelist GCT
-	lwz r4, 0x5D44 (r4)		# /
+	lis r4, StagelistDataLocationHigh			# \ Load "/STAGE/MELEE/STG" from GCT
+	lwz r4, StagelistDataLocationLow (r4)		# |
+	lwz r4, 0x10 (r4)							# /
 }
 
 HOOK @ $8094AB44
@@ -250,7 +254,8 @@ CODE @ $80015568
 Stage Roster Expansion System v3.1 [Phantom Wings, DukeItOut]
 #############################################################
 # Force Regular Stages To Use Maximum Plausible Allocation, including Expansion Slots 
-
+    .alias StagelistDataLocationHigh = 0x8049 #See StagelistLooter.asm
+    .alias StagelistDataLocationLow = 0x5D3C
 HOOK @ $8094A1D0
 {
 	mr r29, r3				# Original operation, places allocation size in r29
@@ -304,8 +309,9 @@ HOOK @ $80026FE0
 	lis r7, 0x736f 		#sora
 	ori r7, r7, 0x7261
 	beq default
-	lis r4, 0x8049
-	lwz r4, 0x5D48 (r4)
+	lis r4, StagelistDataLocationHigh
+	lwz r4, StagelistDataLocationLow (r4)
+	lwz r4, 0x14 (r4)
 	b %end%
 default:
 	lis r4 0x8042		#Default Module path
@@ -465,6 +471,8 @@ Custom Stage SD File Loader [DukeItOut]
 #
 # Prerequisite: Stage ID in r3 (retrieves input, itself)
 ########################################################
+    .alias StagelistDataLocationHigh = 0x8049 #See StagelistLooter.asm
+    .alias StagelistDataLocationLow = 0x5D3C
 CODE @ $8053E000
 {
 	lhz r0, 0xFB8(r12)
@@ -635,9 +643,9 @@ TracklistLoading:
 	mtctr r12				# |
 	bctrl 					# /
 
-	lis r6, 0x8049			#Setup CSE Path
-	ori r6, r6, 0x5D34
-	lwz r6, 0 (r6)
+	lis r6, StagelistDataLocationHigh			#Setup CSE Path from CSE Root from Stagelist.GCT
+	lwz r6, StagelistDataLocationLow (r6)
+	lwz r6, 0x18 (r6)
 	lis r12, 0x805A
 	ori r12, r12, 0x7B00
 	lwz r3, 0 (r6)
@@ -647,6 +655,7 @@ TracklistLoading:
 	lhz r3, 8 (r6)
 	sth r3, 8 (r12)
 	addi r3, r1, 0x30
+
 	li r6,0					# Necessary to prevent a max filesize override by the File Patch Code!
 	lis r12, 0x8001			# \
 	ori r12, r12, 0xBF0C	# | load the file
