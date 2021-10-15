@@ -70,6 +70,7 @@ int BUFFER_P3_INDEX = -1;
 int BUFFER_P4_INDEX = -1;
 int SCALE_INDEX = -1;
 int SPEED_INDEX = -1;
+int STAGELIST_INDEX = -1;
 int EXTERNAL_INDEX = -1;	//Used for GCTRM codes that use other indexs for context
 
 //constant overrides
@@ -309,6 +310,7 @@ void CodeMenu()
 	MainLines.push_back(&P3.CalledFromLine);
 	MainLines.push_back(&P4.CalledFromLine);
 	MainLines.push_back(&SpecialModePage.CalledFromLine);
+	MainLines.push_back(new Selection("Stagelist", { "Project+", "LegacyMP+" }, 0, STAGELIST_INDEX));
 
 #if BUILD_TYPE == PROJECT_PLUS
 	MainLines.push_back(new Toggle("Crowd Cheers", false, CROWD_CHEER_TOGGLE_INDEX));
@@ -874,8 +876,11 @@ void CreateMenu(Page MainPage)
 	//Scale Modifier
 	AddValueToByteArray(SCALE_INDEX, Header);
 
-	//Scale Modifier
+	//Speed Modifier
 	AddValueToByteArray(SPEED_INDEX, Header);
+
+	//Stagelist Looter
+	AddValueToByteArray(STAGELIST_INDEX, Header);
 	
 	//draw settings buffer
 	vector<u32> DSB(0x200 / 4, 0);
@@ -1270,7 +1275,7 @@ void ControlCodeMenu()
 			ANDIS(Reg1, Reg1, ~0x0010); //allow frame advance
 			ADDI(Reg4, Reg4, FRAME_ADVANCE_NUM_WAIT_FRAMES);
 
-			CounterLoop(Reg7, 0, 32, 8); //The actual suggested fix
+			CounterLoop(Reg7, 0, 32, 8);	//Suggested Fix
 			{
 				LHZX(Reg8, Reg3, Reg7);
 				ANDI(Reg8, Reg8, ~0x0010);
