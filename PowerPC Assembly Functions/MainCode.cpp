@@ -20,9 +20,12 @@ using namespace std;
 
 // Set asm output path here:
 #if DOLPHIN_BUILD
-static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\Source\\Netplay\\Net-CodeMenu.asm";
+//static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\Source\\Netplay\\Net-CodeMenu.asm";
+static string OutputAsmPath = "G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD\\Project+\\Source\\Project+\\Net-CodeMenu.asm";
+
 #else
-static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\Source\\Project+\\CodeMenu.asm";
+//static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\Source\\Project+\\CodeMenu.asm";
+static string OutputAsmPath = "G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD\\Project+\\Source\\Project+\\CodeMenu.asm";
 #endif
 
 // --- Optional Settings ---
@@ -102,6 +105,8 @@ int main()
 	CodeEnd();
 
 	MakeASM(TextPath, OutputAsmPath);
+
+	// TODO: Automate setting code menu headers in GCTRM asm files. Can see addresses if you set breakpoint, then view variables in hex in Code Menu.h
 
 	// Assemble using GCTRM
 	if (RunGCTRM) {

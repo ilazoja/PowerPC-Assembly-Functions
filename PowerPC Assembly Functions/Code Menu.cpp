@@ -71,6 +71,9 @@ int BUFFER_P4_INDEX = -1;
 int SCALE_INDEX = -1;
 int SPEED_INDEX = -1;
 int STAGELIST_INDEX = -1;
+int ALL_CHARS_WALLJUMP_INDEX = -1;
+int BALLOON_STOCK_INDEX = -1;
+int TEAMS_ROTATE_TOGGLE_INDEX = -1;
 int EXTERNAL_INDEX = -1;	//Used for GCTRM codes that use other indexs for context
 
 //constant overrides
@@ -89,7 +92,9 @@ int SHIELD_SIZE_MULTIPLIER_INDEX = -1;
 int SHIELD_TILT_MULTIPLIER_INDEX = -1;
 int KNOCKBACK_DECAY_MULTIPLIER_INDEX = -1;
 int WALL_BOUNCE_KNOCKBACK_MULTIPLIER_INDEX = -1;
-
+int CROUCH_KNOCKBACK_INDEX = -1; //new WI
+int SHIELD_DECAY_INDEX = -1; //new WI
+int SHIELD_REGEN_INDEX = -1; //new WI
 
 int SHIELD_RED_1 = -1;
 int SHIELD_GREEN_1 = -1;
@@ -225,16 +230,22 @@ void CodeMenu()
 	constantOverrides.emplace_back(0x80B88354, SDI_DISTANCE_INDEX);
 	ConstantsLines.push_back(new Floating("ASDI Distance", -999, 999, 3, .5, ASDI_DISTANCE_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88358, ASDI_DISTANCE_INDEX);
+	ConstantsLines.push_back(new Toggle("Universal Walljumps", false, ALL_CHARS_WALLJUMP_INDEX));
 	ConstantsLines.push_back(new Floating("Walljump Horizontal Multiplier", -999, 999, 0.9, .05, WALLJUMP_HORIZONTAL_MULTIPLIER_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88420, WALLJUMP_HORIZONTAL_MULTIPLIER_INDEX);
 	ConstantsLines.push_back(new Floating("Minimum Shield Size Scale", -999, 999, 0.15, .02, MINIMUM_SHIELD_SIZE_SCALING_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88444, MINIMUM_SHIELD_SIZE_SCALING_INDEX);
-	ConstantsLines.push_back(new Floating("Shield Damage Multiplier", -999, 999, 1, .02, SHIELD_DAMAGE_MULTIPLIER_INDEX, "%.3f"));
-	constantOverrides.emplace_back(0x80B8845C, SHIELD_DAMAGE_MULTIPLIER_INDEX);
-	ConstantsLines.push_back(new Floating("Base Shield Damage", -999, 999, 0, 1, SHIELD_BASE_DAMAGE_INDEX, "%.3f"));
-	constantOverrides.emplace_back(0x80B88460, SHIELD_BASE_DAMAGE_INDEX);
 	ConstantsLines.push_back(new Floating("Shield Size Multiplier", -999, 999, 1, .05, SHIELD_SIZE_MULTIPLIER_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88478, SHIELD_SIZE_MULTIPLIER_INDEX);
+	ConstantsLines.push_back(new Floating("Shield Decay Rate", -1, 1, 0.280000001192, .04, SHIELD_DECAY_INDEX, "%.2f"));
+	constantOverrides.emplace_back(0x80B88450, SHIELD_DECAY_INDEX);
+	ConstantsLines.push_back(new Floating("Shield Regen Rate", 0, 1, 0.07, .01, SHIELD_REGEN_INDEX, "%.2f"));
+	constantOverrides.emplace_back(0x80B88454, SHIELD_REGEN_INDEX);
+	ConstantsLines.push_back(new Floating("Base Shield Damage", -999, 999, 0, 1, SHIELD_BASE_DAMAGE_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x80B88460, SHIELD_BASE_DAMAGE_INDEX);
+	ConstantsLines.push_back(new Floating("Shield Damage Multiplier", -999, 999, 1, .02, SHIELD_DAMAGE_MULTIPLIER_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x80B8845C, SHIELD_DAMAGE_MULTIPLIER_INDEX);
+	
 	ConstantsLines.push_back(new Floating("Shield Tilt Multiplier", -999, 999, 0.5, .05, SHIELD_TILT_MULTIPLIER_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88484, SHIELD_TILT_MULTIPLIER_INDEX);
 	//ValueLines.push_back(new Floating("Attacker Shield Pushback Friction Multiplier", -999, 999, 1.1, .05, SDI_DISTANCE_INDEX, "%.3f"));
@@ -242,6 +253,8 @@ void CodeMenu()
 	constantOverrides.emplace_back(0x80B88510, WALL_BOUNCE_KNOCKBACK_MULTIPLIER_INDEX);
 	ConstantsLines.push_back(new Floating("Knockback Decay Rate", -999, 999, 0.051, .001, KNOCKBACK_DECAY_MULTIPLIER_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88534, KNOCKBACK_DECAY_MULTIPLIER_INDEX);
+	ConstantsLines.push_back(new Floating("Crouch Knockback Multiplier", 0, 3, 0.666666686535, 0.0833333358169, CROUCH_KNOCKBACK_INDEX, "%.2fx"));
+	constantOverrides.emplace_back(0x80B88348, CROUCH_KNOCKBACK_INDEX);
 	ConstantsLines.push_back(new Selection("Staling Toggle", { "Default", "ON", "OFF" }, 0, STALING_TOGGLE_INDEX));
 	Page ConstantsPage("Gameplay Modifiers", ConstantsLines);
 
@@ -260,12 +273,14 @@ void CodeMenu()
 	SpecialModeLines.push_back(new Comment("Special Modes"));
 	SpecialModeLines.push_back(&ConstantsPage.CalledFromLine);
 	SpecialModeLines.push_back(&DBZModePage.CalledFromLine);
+	SpecialModeLines.push_back(new Toggle("Teams Rotation", false, TEAMS_ROTATE_TOGGLE_INDEX));
 	SpecialModeLines.push_back(new Toggle("Random Angle Mode", false, RANDOM_ANGLE_INDEX));
 	SpecialModeLines.push_back(new Toggle("War Mode", false, WAR_MODE_INDEX));
 	SpecialModeLines.push_back(new Selection("Gameplay Speed Modifier", { "Off", "1.25", "1.5x", "2.0x", "1/2x", "3/4x" }, 0, SPEED_INDEX));
 	SpecialModeLines.push_back(new Toggle("Scale Mode", false, SCALE_INDEX));
 	SpecialModeLines.push_back(new Floating("Scale Modifier", 0.5, 3, 1, 0.05, EXTERNAL_INDEX, "%.2fX"));
 	SpecialModeLines.push_back(new Selection("Big Head Mode", { "Off", "On", "Larger", "Largest", "Largerest" }, 0, BIG_HEAD_INDEX));
+	SpecialModeLines.push_back(new Selection("Balloon Hit Behavior", { "None", "Gain Stock", "Lose Stock" }, 0, BALLOON_STOCK_INDEX));
 	Page SpecialModePage("Special Modes", SpecialModeLines);
 	//main page
 	vector<Line*> MainLines;
@@ -274,10 +289,10 @@ void CodeMenu()
 	MainLines.push_back(new Comment(""));
 #endif
 
-#if BUILD_TYPE == PROJECT_PLUS
+#if DOLPHIN_BUILD
 	MainLines.push_back(new Comment("Desiac's Testing Code Menu", &MENU_TITLE_CHECK_LOCATION));
 #else
-	MainLines.push_back(new Comment("Legacy TE 2.5 Code Menu", &MENU_TITLE_CHECK_LOCATION));
+	MainLines.push_back(new Comment("Desiac's Testing Code Menu", &MENU_TITLE_CHECK_LOCATION));
 #endif
 	MainLines.push_back(new Comment("Green = Comments | Blue = Changed"));
 	MainLines.push_back(new Comment("A = Enter Submenu | B = Back/Exit"));
@@ -296,7 +311,7 @@ void CodeMenu()
 #if TOURNAMENT_ADDITION_BUILD
 	MainLines.push_back(new Selection("Random 1-1", { "OFF", "ON" }, 0, RANDOM_1_TO_1_INDEX));
 #endif
-	MainLines.push_back(new Selection("Alternate Stages", { "Enabled", "Random", "OFF" }, 0, ALT_STAGE_BEHAVIOR_INDEX));
+	MainLines.push_back(new Selection("Alternate Stages", { "Enabled", "Random", "1-1" }, 0, ALT_STAGE_BEHAVIOR_INDEX));
 	MainLines.push_back(new Toggle("Autoskip Results Screen", false, AUTO_SKIP_TO_CSS_INDEX));
 #if DOLPHIN_BUILD
 	MainLines.push_back(new Toggle("Autosave Replays", true, AUTO_SAVE_REPLAY_INDEX));
@@ -310,7 +325,7 @@ void CodeMenu()
 	MainLines.push_back(&P3.CalledFromLine);
 	MainLines.push_back(&P4.CalledFromLine);
 	MainLines.push_back(&SpecialModePage.CalledFromLine);
-	MainLines.push_back(new Selection("Stagelist", { "Project+", "LegacyMP+" }, 0, STAGELIST_INDEX));
+	MainLines.push_back(new Selection("Stagelist", { "LegacyMP+", "NY/NJ" }, 0, STAGELIST_INDEX));
 
 #if BUILD_TYPE == PROJECT_PLUS
 	MainLines.push_back(new Toggle("Crowd Cheers", false, CROWD_CHEER_TOGGLE_INDEX));
@@ -881,6 +896,15 @@ void CreateMenu(Page MainPage)
 
 	//Stagelist Looter
 	AddValueToByteArray(STAGELIST_INDEX, Header);
+
+	//Universal walljump
+	AddValueToByteArray(ALL_CHARS_WALLJUMP_INDEX, Header);
+
+	//Balloon stocks
+	AddValueToByteArray(BALLOON_STOCK_INDEX, Header);
+
+	//Team rotate
+	AddValueToByteArray(TEAMS_ROTATE_TOGGLE_INDEX, Header);
 	
 	//draw settings buffer
 	vector<u32> DSB(0x200 / 4, 0);
@@ -919,6 +943,19 @@ void constantOverride() {
 		SetRegister(reg2, x.address);
 		STW(reg1, reg2, 0);
 	}
+
+	// Universal walljumping - works, but match must be restarted. Attempted writing to 0x80FC15C0 and 0x80FC15D8, but got same result
+	LoadWordToReg(reg1, ALL_CHARS_WALLJUMP_INDEX + Line::VALUE);
+	SetRegister(reg2, 0x80FAA9A0); //walljump comparison
+	// Universal Walljump: If set, write 1
+	If(reg1, GREATER_I, 0); {
+		SetRegister(reg1, 1);	// word 1 @ $80FAA9A0, everyone can walljump
+	}
+	// If not set, write 2
+	Else(); {
+		SetRegister(reg1, 2);  // word 2 @ $80FAA9A0, normal walljump mechanics
+	} EndIf();
+	STW(reg1, reg2, 0);
 
 	ASMEnd(0x2c000000); //cmpwi, r0, 0
 }

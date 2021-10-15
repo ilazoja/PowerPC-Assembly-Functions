@@ -71,6 +71,9 @@ extern int BUFFER_P4_INDEX;
 extern int SCALE_INDEX;
 extern int SPEED_INDEX;
 extern int STAGELIST_INDEX;
+extern int ALL_CHARS_WALLJUMP_INDEX;
+extern int BALLOON_STOCK_INDEX;
+extern int TEAMS_ROTATE_TOGGLE_INDEX;
 
 struct ConstantPair {
 	int address;
@@ -96,6 +99,9 @@ extern int SHIELD_TILT_MULTIPLIER_INDEX;
 extern int KNOCKBACK_DECAY_MULTIPLIER_INDEX;
 extern int WALL_BOUNCE_KNOCKBACK_MULTIPLIER_INDEX;
 extern int STALING_TOGGLE_INDEX;
+extern int CROUCH_KNOCKBACK_INDEX;
+extern int SHIELD_DECAY_INDEX;
+extern int SHIELD_REGEN_INDEX;
 
 extern vector<int> Defaults;
 
@@ -229,9 +235,13 @@ static const int SPEED_LOC = SCALE_LOC + 4; //4
 
 static const int STAGELIST_LOC = SPEED_LOC + 4; //4
 
-static const int DRAW_SETTINGS_BUFFER_LOC = STAGELIST_LOC + 4; //0x200
+static const int ALL_CHARS_WALLJUMP_LOC = STAGELIST_LOC + 4; //4
 
+static const int BALLOON_STOCK_LOC = ALL_CHARS_WALLJUMP_LOC + 4; //4
 
+static const int TEAMS_ROTATE_TOGGLE_LOC = BALLOON_STOCK_LOC + 4; //4
+
+static const int DRAW_SETTINGS_BUFFER_LOC = TEAMS_ROTATE_TOGGLE_LOC + 4; //0x200
 
 static const int START_OF_CODE_MENU = DRAW_SETTINGS_BUFFER_LOC + 0x200;
 
@@ -294,9 +304,11 @@ static vector<int> Defaults;
 
 // Set code menu file output
 #if DOLPHIN_BUILD
-static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\pf\\menu3\\dnet.cmnu", fstream::out | fstream::binary);
+//static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\pf\\menu3\\dnet.cmnu", fstream::out | fstream::binary);
+static fstream MenuFile("G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD\\Project+\\pf\\menu3\\dnet.cmnu", fstream::out | fstream::binary);
 #else
-static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\pf\\menu3\\data.cmnu", fstream::out | fstream::binary);
+//static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\pf\\menu3\\data.cmnu", fstream::out | fstream::binary);
+static fstream MenuFile("G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD\\Project+\\pf\\menu3\\data.cmnu", fstream::out | fstream::binary);
 #endif
 
 class Page;
