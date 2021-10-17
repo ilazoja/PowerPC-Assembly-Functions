@@ -325,7 +325,8 @@ void CodeMenu()
 	MainLines.push_back(&P3.CalledFromLine);
 	MainLines.push_back(&P4.CalledFromLine);
 	MainLines.push_back(&SpecialModePage.CalledFromLine);
-	MainLines.push_back(new Selection("Stagelist", { "LegacyMP+", "NY/NJ" }, 0, STAGELIST_INDEX));
+	MainLines.push_back(new Selection("Stagelist", { "LegacyMP+", "PMBR Extended", "NY/NJ", "NY/NJ Dubs" }, 0, STAGELIST_INDEX));
+	constantOverrides.emplace_back(0x80523400, STAGELIST_INDEX);
 
 #if BUILD_TYPE == PROJECT_PLUS
 	MainLines.push_back(new Toggle("Crowd Cheers", false, CROWD_CHEER_TOGGLE_INDEX));
