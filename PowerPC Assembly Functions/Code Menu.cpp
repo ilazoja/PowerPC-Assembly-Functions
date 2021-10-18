@@ -311,7 +311,7 @@ void CodeMenu()
 #if TOURNAMENT_ADDITION_BUILD
 	MainLines.push_back(new Selection("Random 1-1", { "OFF", "ON" }, 0, RANDOM_1_TO_1_INDEX));
 #endif
-	MainLines.push_back(new Selection("Alternate Stages", { "Enabled", "Random", "1-1" }, 0, ALT_STAGE_BEHAVIOR_INDEX));
+	MainLines.push_back(new Selection("Alternate Stages", { "Enabled", "Random", "Random 1-1", "Off" }, 0, ALT_STAGE_BEHAVIOR_INDEX));
 	MainLines.push_back(new Toggle("Autoskip Results Screen", false, AUTO_SKIP_TO_CSS_INDEX));
 #if DOLPHIN_BUILD
 	MainLines.push_back(new Toggle("Autosave Replays", true, AUTO_SAVE_REPLAY_INDEX));
@@ -603,14 +603,48 @@ void ActualCodes()
 		int Reg3 = 5;
 		int Reg4 = 6;
 
-		LoadWordToReg(Reg1, ALT_STAGE_BEHAVIOR_INDEX + Line::VALUE);
-		If(Reg1, EQUAL_I, 2); //disable
+		LoadWordToReg(Reg1, ALT_STAGE_BEHAVIOR_INDEX + Line::VALUE); 
+		If(Reg1, EQUAL_I, 3); //disable
 		{
+			
 			SetRegister(Reg1, 0);
 			SetRegister(Reg2, 0x800B9EA2);
 			STH(Reg1, Reg2, 0);
 			SetRegister(Reg2, ALT_STAGE_VAL_LOC);
 			STH(Reg1, Reg2, 0);
+		} Else(); If(Reg1, EQUAL_I, 2); // 1-1 random alts, use 'impossible' inputs i.e. inputs that require a simultaneous dpad up and down or dpad left and right press
+		{	
+			// potentially can optimize by combining the two randomized options
+			
+			// auto generated all button combos using BrawlCrate plugin
+			vector<int> alts = { 0,12,3,28,29,30,31,19,23,27,44,45,46,47,35,39,43,76,77,78,79,67,71,75,268,269,270,271,259,263,267,524,525,526,527,515,519,523,2060,2061,2062,2063,2051,2055,2059,4108,4109,4110,4111,4099,4103 };
+			LoadWordToReg(Reg1, Reg2, RANDOM_ALTS_MATCH_START_FLAG);
+
+			If(Reg1, EQUAL_I, 1); {
+				//set new rng value and clear flag
+				LoadWordToReg(Reg4, 0x805a00bc); //random val
+				//RLWINM(Reg1, Reg1, 32 - 8, 30, 31);
+				SetRegister(Reg3, alts.size());
+				MOD(Reg1, Reg4, Reg3);
+				SetRegister(Reg3, RANDOM_ALTS_RNG);
+				STW(Reg1, Reg3, 0);
+				SetRegister(Reg1, 0);
+				STW(Reg1, Reg2, 0);
+			} EndIf();
+
+			LoadWordToReg(Reg3, RANDOM_ALTS_RNG);
+
+			for (int i = 0; i < alts.size(); i++) {
+				If(Reg3, EQUAL_I, i); {
+					SetRegister(Reg4, alts[i]);
+				} EndIf();
+			}
+
+			SetRegister(Reg2, 0x800B9EA2);
+			STH(Reg4, Reg2, 0);
+			SetRegister(Reg2, ALT_STAGE_VAL_LOC);
+			STH(Reg4, Reg2, 0);
+
 		} Else(); If(Reg1, EQUAL_I, 1); //random
 		{
 #if BUILD_TYPE == PROJECT_PLUS
@@ -640,6 +674,7 @@ void ActualCodes()
 					SetRegister(Reg4, alts[i]);
 				} EndIf();
 			}
+
 			/*If(Reg3, EQUAL_I, 1);
 			{
 				SetRegister(Reg3, BUTTON_L);
@@ -656,7 +691,7 @@ void ActualCodes()
 			STH(Reg4, Reg2, 0);
 			SetRegister(Reg2, ALT_STAGE_VAL_LOC);
 			STH(Reg4, Reg2, 0);
-		} EndIf(); EndIf();
+		} EndIf(); EndIf(); EndIf();
 
 		RestoreRegisters();
 #if BUILD_TYPE == PROJECT_PLUS

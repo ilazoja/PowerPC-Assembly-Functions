@@ -30,11 +30,17 @@ static string OutputAsmPath = "G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD
 
 // --- Optional Settings ---
 // GCTRM settings (assumes GCTRM, RSBE01.txt, and boost.txt is in folder)
-static bool RunGCTRM = false;
-static string BuildFolder = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\";
+static bool RunGCTRM = true;
+static string BuildFolder = "G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD\\Project+\\"; //"C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\";
+
+// Build folder git settings
+static bool CommitPull = true;
+static string RepoFolder = R"("G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\")";
+static string BranchName = "experimental";
+static string PullFolder = R"("G:\\Games\\Brawl\\Custom Build\\P+ Build Pull\\")";
 
 // Virtual SD Sync settings
-static bool RunVSDSync = false;
+static bool RunVSDSync = true;
 static string VSDExePath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\VSDSync-0.1.3.2\\VSDSync.exe";
 
 int main()
@@ -123,7 +129,16 @@ int main()
 		system(("\"\"" + GCTRMExePath + "\"" + " -g -l \"" + boostGCTTextfile + "\"\"").c_str());
 	}
 
+	if (CommitPull) {
+		//system(("git -C \"" + RepoFolder + "\" config user.email \"codemenu@gmail.com\"").c_str());
+		//system(("git -C \"\""  + RepoFolder + "\"\" config user.email \"Code Menu\"").c_str());
+		system(("git -C "  + RepoFolder + " commit -a -m \"Modified Code Menu\"").c_str());
+		system(("git -C " + PullFolder + " pull origin " + BranchName).c_str());
+	}
+
+
 	if (RunVSDSync) {
+	
 		system(("\"\"" + VSDExePath + "\"\"").c_str());
 	}
 
