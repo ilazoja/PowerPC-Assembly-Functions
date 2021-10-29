@@ -102,6 +102,8 @@ extern int STALING_TOGGLE_INDEX;
 extern int CROUCH_KNOCKBACK_INDEX;
 extern int SHIELD_DECAY_INDEX;
 extern int SHIELD_REGEN_INDEX;
+extern int TRIPPING_RATE_INDEX;
+extern int TRIPPING_INTERVAL_INDEX;
 
 extern vector<int> Defaults;
 
@@ -304,11 +306,11 @@ static vector<int> Defaults;
 
 // Set code menu file output
 #if DOLPHIN_BUILD
-//static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\pf\\menu3\\dnet.cmnu", fstream::out | fstream::binary);
-static fstream MenuFile("G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD\\Project+\\pf\\menu3\\dnet.cmnu", fstream::out | fstream::binary);
+static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\pf\\menu3\\dnet.cmnu", fstream::out | fstream::binary);
+//static fstream MenuFile("G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD\\Project+\\pf\\menu3\\dnet.cmnu", fstream::out | fstream::binary);
 #else
-//static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\pf\\menu3\\data.cmnu", fstream::out | fstream::binary);
-static fstream MenuFile("G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD\\Project+\\pf\\menu3\\data.cmnu", fstream::out | fstream::binary);
+static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\pf\\menu3\\data.cmnu", fstream::out | fstream::binary);
+//static fstream MenuFile("G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD\\Project+\\pf\\menu3\\data.cmnu", fstream::out | fstream::binary);
 #endif
 
 class Page;

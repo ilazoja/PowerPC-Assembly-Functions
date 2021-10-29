@@ -95,6 +95,8 @@ int WALL_BOUNCE_KNOCKBACK_MULTIPLIER_INDEX = -1;
 int CROUCH_KNOCKBACK_INDEX = -1; //new WI
 int SHIELD_DECAY_INDEX = -1; //new WI
 int SHIELD_REGEN_INDEX = -1; //new WI
+int TRIPPING_RATE_INDEX = -1; 
+int TRIPPING_INTERVAL_INDEX = -1;
 
 int SHIELD_RED_1 = -1;
 int SHIELD_GREEN_1 = -1;
@@ -256,6 +258,16 @@ void CodeMenu()
 	ConstantsLines.push_back(new Floating("Crouch Knockback Multiplier", 0, 3, 0.666666686535, 0.0833333358169, CROUCH_KNOCKBACK_INDEX, "%.2fx"));
 	constantOverrides.emplace_back(0x80B88348, CROUCH_KNOCKBACK_INDEX);
 	ConstantsLines.push_back(new Selection("Staling Toggle", { "Default", "ON", "OFF" }, 0, STALING_TOGGLE_INDEX));
+	ConstantsLines.push_back(new Floating("Tripping Rate Multiplier", 0, 2, 0, 0.025, TRIPPING_RATE_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x8128B2F0, TRIPPING_RATE_INDEX); // P1
+	constantOverrides.emplace_back(0x812DD2F0, TRIPPING_RATE_INDEX); // P2
+	constantOverrides.emplace_back(0x8132F2F0, TRIPPING_RATE_INDEX); // P3
+	constantOverrides.emplace_back(0x813812F0, TRIPPING_RATE_INDEX); // P4
+	ConstantsLines.push_back(new Integer("Tripping Interval", 0x0000CCCC, 0x00FFCCCC, 0x00CCCCCC, 0x00040000, TRIPPING_INTERVAL_INDEX));
+	constantOverrides.emplace_back(0x8128B2FF, TRIPPING_INTERVAL_INDEX); // P1 // kinda jank, should really just be writing a byte, but would need to make new type
+	constantOverrides.emplace_back(0x812DD2FF, TRIPPING_INTERVAL_INDEX); // P2
+	constantOverrides.emplace_back(0x8132F3FF, TRIPPING_INTERVAL_INDEX); // P3
+	constantOverrides.emplace_back(0x813812FF, TRIPPING_INTERVAL_INDEX); // P4
 	Page ConstantsPage("Gameplay Modifiers", ConstantsLines);
 
 	//DBZ Mode settings
@@ -617,7 +629,7 @@ void ActualCodes()
 			// potentially can optimize by combining the two randomized options
 			
 			// auto generated all button combos using BrawlCrate plugin
-			vector<int> alts = { 0,12,3,28,29,30,31,19,23,27,44,45,46,47,35,39,43,76,77,78,79,67,71,75,268,269,270,271,259,263,267,524,525,526,527,515,519,523,2060,2061,2062,2063,2051,2055,2059,4108,4109,4110,4111,4099,4103 };
+			vector<int> alts = { 12,3,28,29,30,31,19,23,27,44,45,46,47,35,39,43,76,77,78,79,67,71,75,268,269,270,271,259,263,267,524,525,526,527,515,519,523,2060 };
 			LoadWordToReg(Reg1, Reg2, RANDOM_ALTS_MATCH_START_FLAG);
 
 			If(Reg1, EQUAL_I, 1); {

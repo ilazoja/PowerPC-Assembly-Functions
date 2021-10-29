@@ -20,28 +20,30 @@ using namespace std;
 
 // Set asm output path here:
 #if DOLPHIN_BUILD
-//static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\Source\\Netplay\\Net-CodeMenu.asm";
-static string OutputAsmPath = "G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD\\Project+\\Source\\Netplay\\Net-CodeMenu.asm";
+static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\Source\\Netplay\\Net-CodeMenu.asm";
+//static string OutputAsmPath = "G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD\\Project+\\Source\\Netplay\\Net-CodeMenu.asm";
 
 #else
-//static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\Source\\Project+\\CodeMenu.asm";
-static string OutputAsmPath = "G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD\\Project+\\Source\\Project+\\CodeMenu.asm";
+static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\Source\\Project+\\CodeMenu.asm";
+//static string OutputAsmPath = "G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD\\Project+\\Source\\Project+\\CodeMenu.asm";
 #endif
 
 // --- Optional Settings ---
 // GCTRM settings (assumes GCTRM, RSBE01.txt, and boost.txt is in folder)
 static bool RunGCTRM = true;
-static string BuildFolder = "G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD\\Project+\\"; //"C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\";
+static string BuildFolder =  "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\";
+//static string BuildFolder = "G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\SD\\Project+\\";
 
 // Build folder git settings
-static bool CommitPull = true;
+static bool CommitPull = false;
 static string RepoFolder = R"("G:\\Games\\Brawl\\Custom Build\\P+ Build Repo\\")";
 static string BranchName = "experimental";
 static string PullFolder = R"("G:\\Games\\Brawl\\Custom Build\\P+ Build Pull\\")";
 
 // Virtual SD Sync settings
 static bool RunVSDSync = true;
-static string VSDExePath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\VSDSync-0.1.3.2\\VSDSync.exe";
+static string VSDExePath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\VSDSync\\VSDSync.exe";
+//static string VSDExePath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\VSDSync-0.1.3.2\\VSDSync.exe";
 
 int main()
 {	
