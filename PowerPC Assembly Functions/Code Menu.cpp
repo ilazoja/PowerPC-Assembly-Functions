@@ -84,6 +84,7 @@ int HITLAG_MAXIMUM_INDEX = -1;
 int HITLAG_MULTIPLIER_INDEX = -1;
 int ELECTRIC_HITLAG_MULTIPLIER_INDEX = -1;
 int ASDI_DISTANCE_INDEX = -1;
+int SMASH_ATTACK_CHARGING_MULTIPLIER_INDEX = -1;
 int WALLJUMP_HORIZONTAL_MULTIPLIER_INDEX = -1;
 int MINIMUM_SHIELD_SIZE_SCALING_INDEX = -1;
 int SHIELD_DAMAGE_MULTIPLIER_INDEX = -1;
@@ -232,6 +233,8 @@ void CodeMenu()
 	constantOverrides.emplace_back(0x80B88354, SDI_DISTANCE_INDEX);
 	ConstantsLines.push_back(new Floating("ASDI Distance", -999, 999, 3, .5, ASDI_DISTANCE_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88358, ASDI_DISTANCE_INDEX);
+	ConstantsLines.push_back(new Floating("Smash Attack Charging Multiplier", 0, 999, 1.3666667, .25, SMASH_ATTACK_CHARGING_MULTIPLIER_INDEX, "%.3f"));
+	constantOverrides.emplace_back(0x80B88324, SMASH_ATTACK_CHARGING_MULTIPLIER_INDEX);
 	ConstantsLines.push_back(new Toggle("Universal Walljumps", false, ALL_CHARS_WALLJUMP_INDEX));
 	ConstantsLines.push_back(new Floating("Walljump Horizontal Multiplier", -999, 999, 0.9, .05, WALLJUMP_HORIZONTAL_MULTIPLIER_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88420, WALLJUMP_HORIZONTAL_MULTIPLIER_INDEX);
