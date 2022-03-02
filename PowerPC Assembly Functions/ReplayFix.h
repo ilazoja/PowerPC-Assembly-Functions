@@ -5,6 +5,7 @@ void ReplayFix();
 void MakeBrawlSaveWholeReplay();
 void SetupRecord();
 void SaveSyncData();
+void SetStageReloadingFlag();
 void AlignSyncDuringPlayback();
 void SetupPlayback();
 void RecordInput();

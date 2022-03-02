@@ -7,7 +7,7 @@ void ReplayFix()
 	RecordInput();
 	PlayInput();
 	MakeBrawlSaveWholeReplay();
-	AlternateStageFix();
+	//AlternateStageFix();
 	MemCardCheckSkip();
 	FastForward();
 	FixDebugPause();
@@ -75,8 +75,14 @@ void EndReplay()
 	SetRegister(Reg2, 0);
 	STW(Reg2, Reg1, 0);
 
+	//SetRegister(Reg1, 0x21);
+	//SetRegister(Reg2, STAGE_LOAD_FLAG_LOC);
+	//STB(Reg1, Reg2, 0); // write ! to P+'s stage system to signify load stage flag
+
 	SetRegister(Reg1, REGISTER_BUFFER);
 	LWZ(Reg2, Reg1, 0);
+
+	
 	WriteIntToFile(0x7c030378); //mr r3, r0
 	ASMEnd();
 }
@@ -312,7 +318,7 @@ void AlternateStageFix()
 
 	//get correct alt stage
 	SetRegister(7, 0x800B9EA2); //alt stage helper ASL loc
-	LWZ(5, 7, -2);
+	LHZ(5, 7, 0);
 	If(5, LESS_I, 0); //alt stage helper not used
 	SetRegister(7, ALT_STAGE_VAL_LOC);
 	LHZ(5, 7, 0); //equals 0 if in a replay
@@ -406,6 +412,22 @@ void SetupPlayback()
 	}EndIf();
 
 	ASMEnd();
+}
+
+void SetStageReloadingFlag()
+{
+	ASMStart(0x8004b1d4);
+
+	int Reg1 = 11;
+	int Reg2 = 12;
+
+	SetRegister(Reg1, 0x52);
+	SetRegister(Reg2, STAGE_LOAD_FLAG_LOC);
+	STB(Reg1, Reg2, 0); // write R to P+'s stage system to signify load stage replay flag
+
+	WriteIntToFile(0xa003033e); //lhz	r0, 0x033E (r3)
+	ASMEnd();
+
 }
 
 //sets r20 to the start of a sync data segment and resets ptrs
@@ -907,7 +929,8 @@ void CStickASDIFix()
 
 //plays back input during replay
 void PlayInput()
-{
+{	
+	SetStageReloadingFlag();
 	AlignSyncDuringPlayback();
 	SetupPlayback();
 	CStickASDIFix();
