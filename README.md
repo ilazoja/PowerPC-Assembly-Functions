@@ -46,6 +46,8 @@ DesiacX for the [extended code menu](https://github.com/DesiacX/PowerPC-Assembly
 
 Eon, PyotrLuzhin, wiiztec for [ASM](GCTRM%20Codes)
 
+mawwwk, Ca$ino Wolf, Snoe and Kapedani for code menu integration and organization for features in T+
+
 DukeItOut for GCTRM
 
 Syvkal for [Virtual SD Sync](http://forums.kc-mm.com/index.php?topic=79470)
