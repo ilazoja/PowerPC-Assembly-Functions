@@ -76,6 +76,9 @@ extern int STAGELIST_INDEX;
 extern int ASL_STAGE_INDEX;
 extern int SALTY_REROLL_INDEX;
 extern int RANDOM_TEAMS_INDEX;
+extern int HITFALLING_TOGGLE_INDEX;
+extern int GRABS_TRADE_INDEX;
+extern int GROUNDED_ASDI_DOWN_INDEX;
 
 struct ConstantPair {
 	int address;
@@ -251,7 +254,13 @@ static const int RANDOM_TEAMS_LOC = RANDOM_1_TO_1_LOC + 4; //4
 
 static const int SALTY_RUNBACK_BUTTON_COMBO_ALT_LOC = RANDOM_TEAMS_LOC + 4; //4
 
-static const int DRAW_SETTINGS_BUFFER_LOC = SALTY_RUNBACK_BUTTON_COMBO_ALT_LOC + 4; //0x200
+static const int HITFALLING_TOGGLE_INDEX_LOC = SALTY_RUNBACK_BUTTON_COMBO_ALT_LOC + 4; //4
+
+static const int GRABS_TRADE_INDEX_LOC = HITFALLING_TOGGLE_INDEX_LOC + 4; //4
+
+static const int GROUNDED_ASDI_DOWN_INDEX_LOC = GRABS_TRADE_INDEX_LOC + 4; //4
+
+static const int DRAW_SETTINGS_BUFFER_LOC = GROUNDED_ASDI_DOWN_INDEX_LOC + 4; //0x200
 
 static const int START_OF_CODE_MENU = DRAW_SETTINGS_BUFFER_LOC + 0x200;
 
@@ -311,13 +320,8 @@ static int CurrentOffset = START_OF_CODE_MENU;
 #define FRAMES_WAITED_DURING_SLOW_MOTION 3
 
 static vector<int> Defaults;
+static fstream MenuFile("C:\\Users\\AZPM\\Downloads\\DesiacXs_Code_Menu\\PowerPC-Assembly-Functions-master\\output\\data.cmnu", fstream::out | fstream::binary);
 
-// Set code menu file output
-#if DOLPHIN_BUILD
-static fstream MenuFile("G:\\Games\\Brawl\\Custom Build\\T+\\Tourney+\\pf\\menu3\\data.cmnu", fstream::out | fstream::binary);
-#else
-static fstream MenuFile("G:\\Games\\Brawl\\Custom Build\\T+\\Tourney+\\pf\\menu3\\data.cmnu", fstream::out | fstream::binary);
-#endif
 
 class Page;
 

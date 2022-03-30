@@ -461,6 +461,7 @@ void EndMatch()
 				SetRegister(reg2, INFINITE_FRIENDLIES_FLAG_LOC);
 				STW(reg1, reg2, 0);
 
+				// TODO: Check salty runback
 				SetRegister(reg1, 0x21);
 				SetRegister(reg2, STAGE_LOAD_FLAG_LOC);
 				STB(reg1, reg2, 0); // write ! to P+'s stage system to signify load stage flag
@@ -478,11 +479,10 @@ void EndMatch()
 		SetRegister(reg9, 0);
 		CounterLoop(reg1, 0, 8, 1); {
 			LWZU(reg5, reg2, BUTTON_PORT_OFFSET);
-			//salty runback
+			//salty runback L+R+Y
 			AND(reg8, reg5, reg6);
 			If(reg8, EQUAL, reg6); {
 				SetRegister(reg9, 0x10);
-
 				SetRegister(reg10, 0x58);
 				SetRegister(reg11, STAGE_LOAD_FLAG_LOC);
 				STB(reg10, reg11, 0); // write X to P+'s stage system to signify don't reload stage
@@ -515,7 +515,7 @@ void EndMatch()
 		XOR(reg1, reg1, reg9);
 		If(reg1, EQUAL_I, 0x10); {
 			SetRegister(NextSceneReg, 1);
-			LWZ(reg4, reg3, 0); //keep hold to puase flag
+			LWZ(reg4, reg3, 0); //keep hold to pause flag
 			STW(reg6, reg5, 0); //clear endless friendlies flag
 		}EndIf();
 

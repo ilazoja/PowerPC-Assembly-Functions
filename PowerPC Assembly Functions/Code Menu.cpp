@@ -76,6 +76,9 @@ int STAGELIST_INDEX = -1;
 int ASL_STAGE_INDEX = -1; //new T+ code!
 int SALTY_REROLL_INDEX = -1; //new T+ code!
 int RANDOM_TEAMS_INDEX = -1;
+int HITFALLING_TOGGLE_INDEX = -1;
+int GRABS_TRADE_INDEX = -1;
+int GROUNDED_ASDI_DOWN_INDEX = -1;
 int EXTERNAL_INDEX = -1;	//Used for GCTRM codes that use other indexs for context
 
 //constant overrides
@@ -133,7 +136,7 @@ void CodeMenu()
 	Page TestPage("Testing flags", TestLines);
 #endif
 
-	vector<Line*> ShieldColorLines;
+	/*vector<Line*> ShieldColorLines;
 	ShieldColorLines.push_back(new Comment("Customize your Shield Color settings"));
 	ShieldColorLines.push_back(new Comment(""));
 	ShieldColorLines.push_back(new Integer("Outer Circle Red", 0, 0xFF, 0, 1, SHIELD_RED_1));
@@ -152,7 +155,7 @@ void CodeMenu()
 	ShieldColorLines.push_back(new Integer("Main Shield Color Green", 0, 0xFF, 0, 1, SHIELD_GREEN_4));
 	ShieldColorLines.push_back(new Integer("Main Shield Color Blue", 0, 0xFF, 0, 1, SHIELD_BLUE_4));
 	ShieldColorLines.push_back(new Integer("Main Shield Color Alpha", 0, 0xFF, 0, 1, SHIELD_ALPHA_4));
-	Page ShieldColorCodes("Shield Color Settings", ShieldColorLines);
+	Page ShieldColorCodes("Shield Color Settings", ShieldColorLines);*/
 
 	//player pages
 	vector<Line*> P1Lines;
@@ -161,7 +164,7 @@ void CodeMenu()
 	P1Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
 	P1Lines.push_back(new Comment(""));
 	P1Lines.push_back(new Toggle("Infinite Shield", false, INFINITE_SHIELDS_P1_INDEX));
-	P1Lines.push_back(&ShieldColorCodes.CalledFromLine);
+	//P1Lines.push_back(&ShieldColorCodes.CalledFromLine); it works fine, just the others dont
 	P1Lines.push_back(new Comment(""));
 	P1Lines.push_back(new Selection("P1 Character Select", CHARACTER_LIST, CHARACTER_ID_LIST, 0, CHARACTER_SELECT_P1_INDEX));
 	//P1Lines.push_back(new Selection("P1 Identity Crisis", CHARACTER_LIST, CHARACTER_ID_LIST, 0, CHARACTER_SELECT_P1_INDEX));
@@ -287,6 +290,7 @@ void CodeMenu()
 	constantOverrides.emplace_back(0x80B88354, SDI_DISTANCE_INDEX);
 	OnHitLines.push_back(new Floating("ASDI Distance", -999, 999, 3, .5, ASDI_DISTANCE_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88358, ASDI_DISTANCE_INDEX);
+	OnHitLines.push_back(new Toggle("Grounded ASDI Down", true, GROUNDED_ASDI_DOWN_INDEX));
 	OnHitLines.push_back(new Floating("Knockback Decay Rate", -999, 999, 0.051, .001, KNOCKBACK_DECAY_MULTIPLIER_INDEX, "%.3f"));
 	constantOverrides.emplace_back(0x80B88534, KNOCKBACK_DECAY_MULTIPLIER_INDEX);
 	OnHitLines.push_back(new Floating("Crouch Knockback Multiplier", 0, 3, (2. / 3.), (1. / 12.), CROUCH_KNOCKBACK_INDEX, "%.2fx"));
@@ -319,6 +323,9 @@ void CodeMenu()
 	ConstantsLines.push_back(new Comment("Gameplay Modifiers"));
 	ConstantsLines.push_back(new Comment(""));
 	ConstantsLines.push_back(&OnHitCodes.CalledFromLine);
+	ConstantsLines.push_back(new Selection("Move Staling", { "ON (Versus)", "ON (All Modes)", "OFF" }, 0, STALING_TOGGLE_INDEX));
+	ConstantsLines.push_back(new Selection("Grab Trade Behavior", { "Default", "Recoil", "Heart Swap" }, 0, GRABS_TRADE_INDEX));
+	ConstantsLines.push_back(new Toggle("Hitfalling", false, HITFALLING_TOGGLE_INDEX));
 	ConstantsLines.push_back(new Comment(""));
 	ConstantsLines.push_back(&ShieldMechanicCodes.CalledFromLine);
 	ConstantsLines.push_back(new Comment(""));
@@ -358,7 +365,6 @@ void CodeMenu()
 	SpecialModeLines.push_back(new Selection("Balloon Hit Behavior", { "None", "Gain Stock", "Lose Stock" }, 0, BALLOON_STOCK_INDEX));
 	SpecialModeLines.push_back(new Toggle("Salty Reroll", false, SALTY_REROLL_INDEX));
 	SpecialModeLines.push_back(new Toggle("Crowd Cheers", false, CROWD_CHEER_TOGGLE_INDEX));
-	SpecialModeLines.push_back(new Selection("Move Staling", { "ON (Versus)", "ON (All Modes)", "OFF" }, 0, STALING_TOGGLE_INDEX));
 	SpecialModeLines.push_back(new Selection("Gameplay Speed Modifier", { "Off", "1.25", "1.5x", "2.0x", "1/2x", "3/4x" }, 0, SPEED_INDEX));
 	SpecialModeLines.push_back(new Toggle("Scale Mode", false, SCALE_INDEX));
 	SpecialModeLines.push_back(new Floating("Scale Modifier", 0.5, 3, 1, 0.05, EXTERNAL_INDEX, "%.2fX"));
@@ -394,7 +400,7 @@ void CodeMenu()
 	MainLines.push_back(new Selection("Random 1 for 1", { "OFF", "ON" }, 0, RANDOM_1_TO_1_INDEX));
 	MainLines.push_back(new Selection("Button Stages", { "Enabled", "Random", "OFF" }, 0, ALT_STAGE_BEHAVIOR_INDEX));
 	MainLines.push_back(new Toggle("Alternate Stages", true, ASL_STAGE_INDEX));
-	MainLines.push_back(new Selection("Stagelist", { "Default", "PMBR", "Canada", "Spain", "Australia","By Series", "ProjectM", "Project+" }, 0, STAGELIST_INDEX));
+	MainLines.push_back(new Selection("Stagelist", { "Default", "PMBR", "Spain", "Australia","By Series", "Alphabetical", "ProjectM", "Project+" }, 0, STAGELIST_INDEX));
 	MainLines.push_back(new Toggle("Skip Results Screen", false, AUTO_SKIP_TO_CSS_INDEX));
 	MainLines.push_back(new Toggle("Randomized Teams", false, RANDOM_TEAMS_INDEX));
 #if DOLPHIN_BUILD
@@ -973,8 +979,17 @@ void CreateMenu(Page MainPage)
 	//Random Teams
 	AddValueToByteArray(RANDOM_TEAMS_INDEX, Header);
 
-	//salty runback ALTERNATE COMBO
+	//Salty Runback Alternate Combo
 	AddValueToByteArray(BUTTON_A | BUTTON_B, Header); 
+
+	//Hitfalling toggle
+	AddValueToByteArray(HITFALLING_TOGGLE_INDEX, Header);
+
+	//Grabs Trade behavior toggle
+	AddValueToByteArray(GRABS_TRADE_INDEX, Header);
+
+	//Grounded ASDI Down toggle
+	AddValueToByteArray(GROUNDED_ASDI_DOWN_INDEX, Header);
 
 	//draw settings buffer
 	vector<u32> DSB(0x200 / 4, 0);
