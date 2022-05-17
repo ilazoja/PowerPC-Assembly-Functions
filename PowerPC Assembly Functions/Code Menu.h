@@ -206,27 +206,31 @@ static const int SHOULD_DISPLAY_HUD_FLAG_LOC = CODE_MENU_NEED_TO_SAVE_CAMERA_MAT
 static const int SHOULD_RESET_HITBOX_DISPLAY_FLAG_LOC = SHOULD_DISPLAY_HUD_FLAG_LOC + 4; //4
 static const int SHOULD_RESET_STAGE_COLLISIONS_FLAG_LOC = SHOULD_RESET_HITBOX_DISPLAY_FLAG_LOC + 4; //4
 
-static const int ALC_P1_LOC = SHOULD_RESET_STAGE_COLLISIONS_FLAG_LOC + 4; //4
-static const int ALC_P2_LOC = ALC_P1_LOC + 4; //4
-static const int ALC_P3_LOC = ALC_P2_LOC + 4; //4
-static const int ALC_P4_LOC = ALC_P3_LOC + 4; //4
+//static const int ALC_P1_LOC = SHOULD_RESET_STAGE_COLLISIONS_FLAG_LOC + 4; //4
+//static const int ALC_P2_LOC = ALC_P1_LOC + 4; //4
+//static const int ALC_P3_LOC = ALC_P2_LOC + 4; //4
+//static const int ALC_P4_LOC = ALC_P3_LOC + 4; //4
 
-static const int BIG_HEAD_LOC = ALC_P4_LOC + 4; //4
+static const int ALT_STAGE_LOC = SHOULD_RESET_STAGE_COLLISIONS_FLAG_LOC + 4; //4
 
-static const int RANDOM_ANGLE_LOC = BIG_HEAD_LOC + 4; //4
+static const int BIG_HEAD_LOC = ALT_STAGE_LOC + 4; //4
+//static const int BIG_HEAD_LOC = ALC_P4_LOC + 4; //4
 
-static const int WAR_MODE_LOC = RANDOM_ANGLE_LOC + 4; //4
+//static const int RANDOM_ANGLE_LOC = BIG_HEAD_LOC + 4; //4
 
-static const int BUFFER_P1_LOC = WAR_MODE_LOC + 4; //4
-static const int BUFFER_P2_LOC = BUFFER_P1_LOC + 4; //4
-static const int BUFFER_P3_LOC = BUFFER_P2_LOC + 4; //4
-static const int BUFFER_P4_LOC = BUFFER_P3_LOC + 4; //4
+//static const int WAR_MODE_LOC = RANDOM_ANGLE_LOC + 4; //4
 
-static const int SCALE_LOC = BUFFER_P4_LOC + 4; //4
+//static const int BUFFER_P1_LOC = WAR_MODE_LOC + 4; //4
+//static const int BUFFER_P2_LOC = BUFFER_P1_LOC + 4; //4
+//static const int BUFFER_P3_LOC = BUFFER_P2_LOC + 4; //4
+//static const int BUFFER_P4_LOC = BUFFER_P3_LOC + 4; //4
 
-static const int SPEED_LOC = SCALE_LOC + 4; //4
+//static const int SCALE_LOC = BUFFER_P4_LOC + 4; //4
 
-static const int DRAW_SETTINGS_BUFFER_LOC = SPEED_LOC + 4; //0x200
+//static const int SPEED_LOC = SCALE_LOC + 4; //4
+
+static const int DRAW_SETTINGS_BUFFER_LOC = BIG_HEAD_LOC + 4;
+//static const int DRAW_SETTINGS_BUFFER_LOC = SPEED_LOC + 4; //0x200
 
 
 
@@ -291,9 +295,9 @@ static vector<int> Defaults;
 
 // Set code menu file output
 #if DOLPHIN_BUILD
-static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\pf\\menu3\\dnet.cmnu", fstream::out | fstream::binary);
+static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+Modding\\Experimental\\SD\\Project+\\pf\\menu3\\dnet.cmnu", fstream::out | fstream::binary);
 #else
-static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\pf\\menu3\\data.cmnu", fstream::out | fstream::binary);
+static fstream MenuFile("C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+Modding\\Experimental\\SD\\Project+\\pf\\menu3\\data.cmnu", fstream::out | fstream::binary);
 #endif
 
 class Page;

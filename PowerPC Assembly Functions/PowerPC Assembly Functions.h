@@ -150,6 +150,7 @@ const int REPLACE_NAME_TIME_ADDRESS = REPLACE_NAME_OLD_TIME_LOC + 4;
 #define GCC_SETTINGS_TAG_OFFSET 0x14
 #define TAG_TIME_OFFSET 0x10
 #define MENU_FIRST_CREATION_TIME_LOC 0x90172e30
+#define STAGE_LOAD_FLAG_LOC 0x8053F003
 //state=0, pos=1, size=2, buttonPos=3, buttonCancel=4-5, newSize=6, newPos=7, reopenFlag=8, replaceTimeFlag=9, openFlag=10
 const int MENU_STATE_INFO_OFFSET = 0x60;
 const int MENU_SIZE_OFFSET = 0x6C;

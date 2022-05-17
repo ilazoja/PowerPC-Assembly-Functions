@@ -132,10 +132,10 @@ void CodeMenu()
 	P1Lines.push_back(new Floating("Select Percent", 0, 999, 0, 1, PERCENT_SELECT_VALUE_P1_INDEX, "%.0f%%"));
 	P1Lines.push_back(new Toggle("Press DPad to select percent", false, PERCENT_SELECT_ACTIVATOR_P1_INDEX));
 	P1Lines.push_back(new Toggle("Disable DPad", false, DISABLE_DPAD_P1_INDEX));
-	P1Lines.push_back(new Selection("Input Buffer", { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, 0, BUFFER_P1_INDEX));
-	P1Lines.push_back(new Selection("Automatic L-Cancelling", { "OFF", "ON", "Modified" }, 0, ALC_P1_INDEX));
-	P1Lines.push_back(new Floating("ALC Modifier", 0.099, 3, 0.5, 0.05, EXTERNAL_INDEX, "%.2fX"));
-	P1Lines.push_back(new Toggle("Red Flash on L-Cancel Failure", false, EXTERNAL_INDEX));
+	//P1Lines.push_back(new Selection("Input Buffer", { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, 0, BUFFER_P1_INDEX));
+	//P1Lines.push_back(new Selection("Automatic L-Cancelling", { "OFF", "ON", "Modified" }, 0, ALC_P1_INDEX));
+	//P1Lines.push_back(new Floating("ALC Modifier", 0.099, 3, 0.5, 0.05, EXTERNAL_INDEX, "%.2fX"));
+	//P1Lines.push_back(new Toggle("Red Flash on L-Cancel Failure", false, EXTERNAL_INDEX));
 	P1Lines.push_back(new Comment(""));
 	P1Lines.push_back(new Print("Tag Hex: %s", { &P1_TAG_STRING_INDEX }));
 	P1Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
@@ -151,10 +151,10 @@ void CodeMenu()
 	P2Lines.push_back(new Floating("Select Percent", 0, 999, 0, 1, PERCENT_SELECT_VALUE_P2_INDEX, "%.0f%%"));
 	P2Lines.push_back(new Toggle("Press DPad to select percent", false, PERCENT_SELECT_ACTIVATOR_P2_INDEX));
 	P2Lines.push_back(new Toggle("Disable DPad", false, DISABLE_DPAD_P2_INDEX));
-	P2Lines.push_back(new Selection("Input Buffer", { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, 0, BUFFER_P2_INDEX));
-	P2Lines.push_back(new Selection("Automatic L-Cancelling", { "OFF", "ON", "Modified" }, 0, ALC_P2_INDEX));
-	P2Lines.push_back(new Floating("ALC Modifier", 0.099, 3, 0.5, 0.05, EXTERNAL_INDEX, "%.2fX"));
-	P2Lines.push_back(new Toggle("Red Flash on L-Cancel Failure", false, EXTERNAL_INDEX));
+	//P2Lines.push_back(new Selection("Input Buffer", { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, 0, BUFFER_P2_INDEX));
+	//P2Lines.push_back(new Selection("Automatic L-Cancelling", { "OFF", "ON", "Modified" }, 0, ALC_P2_INDEX));
+	//P2Lines.push_back(new Floating("ALC Modifier", 0.099, 3, 0.5, 0.05, EXTERNAL_INDEX, "%.2fX"));
+	//P2Lines.push_back(new Toggle("Red Flash on L-Cancel Failure", false, EXTERNAL_INDEX));
 	P2Lines.push_back(new Comment(""));
 	P2Lines.push_back(new Print("Tag Hex: %s", { &P2_TAG_STRING_INDEX }));
 	P2Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
@@ -167,10 +167,10 @@ void CodeMenu()
 	P3Lines.push_back(new Floating("Select Percent", 0, 999, 0, 1, PERCENT_SELECT_VALUE_P3_INDEX, "%.0f%%"));
 	P3Lines.push_back(new Toggle("Press DPad to select percent", false, PERCENT_SELECT_ACTIVATOR_P3_INDEX));
 	P3Lines.push_back(new Toggle("Disable DPad", false, DISABLE_DPAD_P3_INDEX));
-	P3Lines.push_back(new Selection("Input Buffer", { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, 0, BUFFER_P3_INDEX));
-	P3Lines.push_back(new Selection("Automatic L-Cancelling", { "OFF", "ON", "Modified" }, 0, ALC_P3_INDEX));
-	P3Lines.push_back(new Floating("ALC Modifier", 0.099, 3, 0.5, 0.05, EXTERNAL_INDEX, "%.2fX"));
-	P3Lines.push_back(new Toggle("Red Flash on L-Cancel Failure", false, EXTERNAL_INDEX));
+	//P3Lines.push_back(new Selection("Input Buffer", { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, 0, BUFFER_P3_INDEX));
+	//P3Lines.push_back(new Selection("Automatic L-Cancelling", { "OFF", "ON", "Modified" }, 0, ALC_P3_INDEX));
+	//P3Lines.push_back(new Floating("ALC Modifier", 0.099, 3, 0.5, 0.05, EXTERNAL_INDEX, "%.2fX"));
+	//P3Lines.push_back(new Toggle("Red Flash on L-Cancel Failure", false, EXTERNAL_INDEX));
 	P3Lines.push_back(new Comment(""));
 	P3Lines.push_back(new Print("Tag Hex: %s", { &P3_TAG_STRING_INDEX }));
 	P3Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
@@ -183,10 +183,10 @@ void CodeMenu()
 	P4Lines.push_back(new Floating("Select Percent", 0, 999, 0, 1, PERCENT_SELECT_VALUE_P4_INDEX, "%.0f%%"));
 	P4Lines.push_back(new Toggle("Press DPad to select percent", false, PERCENT_SELECT_ACTIVATOR_P4_INDEX));
 	P4Lines.push_back(new Toggle("Disable DPad", false, DISABLE_DPAD_P4_INDEX));
-	P4Lines.push_back(new Selection("Input Buffer", { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, 0, BUFFER_P4_INDEX));
-	P4Lines.push_back(new Selection("Automatic L-Cancelling", { "OFF", "ON", "Modified" }, 0, ALC_P4_INDEX));
-	P4Lines.push_back(new Floating("ALC Modifier", 0.099, 3, 0.5, 0.05, EXTERNAL_INDEX, "%.2fX"));
-	P4Lines.push_back(new Toggle("Red Flash on L-Cancel Failure", false, EXTERNAL_INDEX));
+	//P4Lines.push_back(new Selection("Input Buffer", { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, 0, BUFFER_P4_INDEX));
+	//P4Lines.push_back(new Selection("Automatic L-Cancelling", { "OFF", "ON", "Modified" }, 0, ALC_P4_INDEX));
+	//P4Lines.push_back(new Floating("ALC Modifier", 0.099, 3, 0.5, 0.05, EXTERNAL_INDEX, "%.2fX"));
+	//P4Lines.push_back(new Toggle("Red Flash on L-Cancel Failure", false, EXTERNAL_INDEX));
 	P4Lines.push_back(new Comment(""));
 	P4Lines.push_back(new Print("Tag Hex: %s", { &P4_TAG_STRING_INDEX }));
 	P4Lines.push_back(new Comment("For Use With Tag-Based Costumes"));
@@ -259,12 +259,13 @@ void CodeMenu()
 	SpecialModeLines.push_back(new Comment("Special Modes"));
 	SpecialModeLines.push_back(&ConstantsPage.CalledFromLine);
 	SpecialModeLines.push_back(&DBZModePage.CalledFromLine);
-	SpecialModeLines.push_back(new Toggle("Random Angle Mode", false, RANDOM_ANGLE_INDEX));
-	SpecialModeLines.push_back(new Toggle("War Mode", false, WAR_MODE_INDEX));
-	SpecialModeLines.push_back(new Selection("Gameplay Speed Modifier", { "Off", "1.25", "1.5x", "2.0x", "1/2x", "3/4x" }, 0, SPEED_INDEX));
-	SpecialModeLines.push_back(new Toggle("Scale Mode", false, SCALE_INDEX));
-	SpecialModeLines.push_back(new Floating("Scale Modifier", 0.5, 3, 1, 0.05, EXTERNAL_INDEX, "%.2fX"));
-	SpecialModeLines.push_back(new Selection("Big Head Mode", { "Off", "On", "Larger", "Largest", "Largerest" }, 0, BIG_HEAD_INDEX));
+	//SpecialModeLines.push_back(new Toggle("Random Angle Mode", false, RANDOM_ANGLE_INDEX));
+	//SpecialModeLines.push_back(new Toggle("War Mode", false, WAR_MODE_INDEX));
+	//SpecialModeLines.push_back(new Selection("Gameplay Speed Modifier", { "Off", "1.25", "1.5x", "2.0x", "1/2x", "3/4x" }, 0, SPEED_INDEX));
+	//SpecialModeLines.push_back(new Toggle("Scale Mode", false, SCALE_INDEX));
+	//SpecialModeLines.push_back(new Floating("Scale Modifier", 0.5, 3, 1, 0.05, EXTERNAL_INDEX, "%.2fX"));
+	SpecialModeLines.push_back(new Selection("Big Head Mode", { "Small", "Off", "On", "Larger", "Largest", "Largerest" }, 1, BIG_HEAD_INDEX));
+	//SpecialModeLines.push_back(new Floating("Big Head Size", 0, 4, 1, .5, BIG_HEAD_INDEX, "%.1f"));
 	Page SpecialModePage("Special Modes", SpecialModeLines);
 	//main page
 	vector<Line*> MainLines;
@@ -274,7 +275,7 @@ void CodeMenu()
 #endif
 
 #if BUILD_TYPE == PROJECT_PLUS
-	MainLines.push_back(new Comment("Desiac's Testing Code Menu", &MENU_TITLE_CHECK_LOCATION));
+	MainLines.push_back(new Comment("Project+ Code Menu", &MENU_TITLE_CHECK_LOCATION));
 #else
 	MainLines.push_back(new Comment("Legacy TE 2.5 Code Menu", &MENU_TITLE_CHECK_LOCATION));
 #endif
@@ -295,7 +296,7 @@ void CodeMenu()
 #if TOURNAMENT_ADDITION_BUILD
 	MainLines.push_back(new Selection("Random 1-1", { "OFF", "ON" }, 0, RANDOM_1_TO_1_INDEX));
 #endif
-	MainLines.push_back(new Selection("Alternate Stages", { "Enabled", "Random", "OFF" }, 0, ALT_STAGE_BEHAVIOR_INDEX));
+	MainLines.push_back(new Selection("Alternate Stages", { "Enabled", "Random", "Random 1-1", "OFF" }, 0, ALT_STAGE_BEHAVIOR_INDEX));
 	MainLines.push_back(new Toggle("Autoskip Results Screen", false, AUTO_SKIP_TO_CSS_INDEX));
 #if DOLPHIN_BUILD
 	MainLines.push_back(new Toggle("Autosave Replays", true, AUTO_SAVE_REPLAY_INDEX));
@@ -586,7 +587,7 @@ void ActualCodes()
 		int Reg4 = 6;
 
 		LoadWordToReg(Reg1, ALT_STAGE_BEHAVIOR_INDEX + Line::VALUE);
-		If(Reg1, EQUAL_I, 2); //disable
+		If(Reg1, EQUAL_I, 3); //disable
 		{
 			SetRegister(Reg1, 0);
 			SetRegister(Reg2, 0x800B9EA2);
@@ -851,31 +852,34 @@ void CreateMenu(Page MainPage)
 	AddValueToByteArray(0, Header);
 
 	//Auto L-Cancelling
-	AddValueToByteArray(ALC_P1_INDEX, Header);
-	AddValueToByteArray(ALC_P2_INDEX, Header);
-	AddValueToByteArray(ALC_P3_INDEX, Header);
-	AddValueToByteArray(ALC_P4_INDEX, Header);
+	//AddValueToByteArray(ALC_P1_INDEX, Header);
+	//AddValueToByteArray(ALC_P2_INDEX, Header);
+	//AddValueToByteArray(ALC_P3_INDEX, Header);
+	//AddValueToByteArray(ALC_P4_INDEX, Header);
 	
+	// Alt Stage Behaviour Index
+	AddValueToByteArray(ALT_STAGE_BEHAVIOR_INDEX, Header);
+
 	//Big Head Mode Index
 	AddValueToByteArray(BIG_HEAD_INDEX, Header);
 
 	//Random Angle Mode
-	AddValueToByteArray(RANDOM_ANGLE_INDEX, Header);
+	//AddValueToByteArray(RANDOM_ANGLE_INDEX, Header);
 
 	//War Mode Index
-	AddValueToByteArray(WAR_MODE_INDEX, Header);
+	//AddValueToByteArray(WAR_MODE_INDEX, Header);
 
 	//Input Buffer
-	AddValueToByteArray(BUFFER_P1_INDEX, Header);
-	AddValueToByteArray(BUFFER_P2_INDEX, Header);
-	AddValueToByteArray(BUFFER_P3_INDEX, Header);
-	AddValueToByteArray(BUFFER_P4_INDEX, Header);
+	//AddValueToByteArray(BUFFER_P1_INDEX, Header);
+	//AddValueToByteArray(BUFFER_P2_INDEX, Header);
+	//AddValueToByteArray(BUFFER_P3_INDEX, Header);
+	//AddValueToByteArray(BUFFER_P4_INDEX, Header);
 
 	//Scale Modifier
-	AddValueToByteArray(SCALE_INDEX, Header);
+	//AddValueToByteArray(SCALE_INDEX, Header);
 
 	//Scale Modifier
-	AddValueToByteArray(SPEED_INDEX, Header);
+	//AddValueToByteArray(SPEED_INDEX, Header);
 	
 	//draw settings buffer
 	vector<u32> DSB(0x200 / 4, 0);
@@ -1005,7 +1009,7 @@ void ControlCodeMenu()
 	int NotLoaded = GetNextLabel();
 #if BUILD_TYPE == PROJECT_PLUS
 	LoadHalfToReg(Reg1, MENU_TITLE_CHECK_LOCATION + 7 + Line::COMMENT_LINE_TEXT_START);
-	If(Reg1, NOT_EQUAL_I_L, 0x7320); //+
+	If(Reg1, NOT_EQUAL_I_L, 0x2B20); //+
 	{
 		JumpToLabel(NotLoaded);
 	}EndIf();

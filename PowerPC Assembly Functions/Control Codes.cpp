@@ -398,6 +398,8 @@ void EndMatch()
 	int reg7 = 25;
 	int reg8 = 24;
 	int reg9 = 23;
+	int reg10 = 22;
+	int reg11 = 21;
 	int NextSceneReg = 16;
 	int MainBufferReg = 15;
 	int oldSceneReg = 14;
@@ -463,6 +465,10 @@ void EndMatch()
 				SetRegister(reg2, INFINITE_FRIENDLIES_FLAG_LOC);
 				STW(reg1, reg2, 0);
 
+				SetRegister(reg1, 0x21);
+				SetRegister(reg2, STAGE_LOAD_FLAG_LOC);
+				STB(reg1, reg2, 0); // write ! to P+'s stage system to signify load stage flag
+
 				SetRegister(NextSceneReg, 1);
 			}EndIf();
 
@@ -479,6 +485,9 @@ void EndMatch()
 			AND(reg8, reg5, reg6);
 			If(reg8, EQUAL, reg6); {
 				SetRegister(reg9, 0x10);
+				SetRegister(reg10, 0x58);
+				SetRegister(reg11, STAGE_LOAD_FLAG_LOC);
+				STB(reg10, reg11, 0); // write X to P+'s stage system to signify don't reload stage
 			}EndIf();
 			//skip to CSS
 			AND(reg8, reg5, reg7);
@@ -967,6 +976,17 @@ void GetLegalStagesArray(int reg1, int reg2, int reg3, int reg4, int reg5, int r
 	SetRegister(reg4, 0);
 	LWZ(reg8, reg2, 0x24);
 	LWZ(reg9, reg2, 0x20);
+
+	// get and invert stage strike table
+	LoadWordToReg(reg5, 0x8053E574);
+	LoadWordToReg(reg6, 0x8053E570);
+	SetRegister(reg7, -1);
+	XOR(reg5, reg5, reg7);
+	XOR(reg6, reg6, reg7);
+
+	// and random stage switch table and stage strike table
+	AND(reg8, reg8, reg5);
+	AND(reg9, reg9, reg6);
 
 	LoadWordToReg(reg1, 0x80495D04);
 	AddLegalStagesToArray(reg1, reg9, reg8, reg3, reg4, reg5, reg6, reg7);

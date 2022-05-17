@@ -20,19 +20,19 @@ using namespace std;
 
 // Set asm output path here:
 #if DOLPHIN_BUILD
-static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\Source\\Netplay\\Net-CodeMenu.asm";
+static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+Modding\\Experimental\\SD\\Project+\\Source\\Netplay\\Net-CodeMenu.asm";
 #else
-static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\Source\\Project+\\CodeMenu.asm";
+static string OutputAsmPath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+Modding\\Experimental\\SD\\Project+\\Source\\Project+\\CodeMenu.asm";
 #endif
 
 // --- Optional Settings ---
 // GCTRM settings (assumes GCTRM, RSBE01.txt, and boost.txt is in folder)
 static bool RunGCTRM = false;
-static string BuildFolder = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\Experimental\\SD\\Project+\\";
+static string BuildFolder = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+Modding\\Experimental\\SD\\Project+\\";
 
 // Virtual SD Sync settings
 static bool RunVSDSync = false;
-static string VSDExePath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+ Modding\\VSDSync-0.1.3.2\\VSDSync.exe";
+static string VSDExePath = "C:\\Users\\Ilir\\Documents\\Games\\Brawl\\Project+Modding\\VSDSync-0.1.3.2\\VSDSync.exe";
 
 int main()
 {	
