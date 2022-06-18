@@ -320,7 +320,11 @@ static int CurrentOffset = START_OF_CODE_MENU;
 #define FRAMES_WAITED_DURING_SLOW_MOTION 3
 
 static vector<int> Defaults;
-static fstream MenuFile("C:\\Users\\AZPM\\Downloads\\DesiacXs_Code_Menu\\PowerPC-Assembly-Functions-master\\output\\data.cmnu", fstream::out | fstream::binary);
+#if DOLPHIN_BUILD
+static fstream MenuFile("G:\\Games\\Brawl\\Custom Build\\T+\\T+SD\\Build\\Tourney+\\pf\\menu3\\dnet.cmnu", fstream::out | fstream::binary);
+#else
+static fstream MenuFile("G:\\Games\\Brawl\\Custom Build\\T+\\T+SD\\Build\\Tourney+\\pf\\menu3\\data.cmnu", fstream::out | fstream::binary);
+#endif
 
 
 class Page;

@@ -20,7 +20,7 @@ typedef unsigned char u8;
 #define PMEX 1
 #define PROJECT_PLUS 2
 #define BUILD_TYPE PROJECT_PLUS
-#define DOLPHIN_BUILD false
+#define DOLPHIN_BUILD true
 #define EON_DEBUG_BUILD false
 #define TOURNAMENT_ADDITION_BUILD false
 
